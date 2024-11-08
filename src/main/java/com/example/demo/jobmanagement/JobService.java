@@ -25,4 +25,11 @@ public class JobService {
 
 
     }
+
+    public JobDTO getJobByID(UUID id) {
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Job not found with the id : " + id));
+        Company company = job.getCompany();
+        return new JobDTO(job, company);
+    }
 }
