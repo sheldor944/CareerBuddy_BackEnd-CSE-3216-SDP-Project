@@ -1,5 +1,6 @@
 package com.example.demo.jobmanagement;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,14 @@ public class JobController {
     @GetMapping("/{id}")
     public JobDTO getJobById(@PathVariable UUID id){
         return  jobService.getJobByID(id);
+    }
+
+    @GetMapping("/search")
+    public List<JobDTO> searchJobs(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String description
+    ){
+        return jobService.searchJobs(title, description );
     }
 
 

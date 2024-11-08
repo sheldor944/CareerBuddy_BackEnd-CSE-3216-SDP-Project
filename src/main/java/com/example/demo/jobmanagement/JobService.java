@@ -43,4 +43,14 @@ public class JobService {
                         job.getCompany()
                 )).collect(Collectors.toList());
     }
+
+    public List<JobDTO> searchJobs(String title, String description) {
+        List<Job> jobs = jobRepository.findByMultipleFields(title, description);
+        return jobs.stream()
+                .map(job -> new JobDTO(
+                        job,
+                        job.getCompany()
+                )).collect(Collectors.toList());
+//        return null;
+    }
 }
