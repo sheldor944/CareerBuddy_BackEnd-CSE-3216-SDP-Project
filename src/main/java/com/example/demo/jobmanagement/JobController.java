@@ -3,6 +3,7 @@ package com.example.demo.jobmanagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,10 +18,16 @@ public class JobController {
 //        return null;
     }
 
+    @GetMapping
+    public List<JobDTO> getAllJobs(){
+        return jobService.getAllJobs();
+    }
+
     @GetMapping("/{id}")
     public JobDTO getJobById(@PathVariable UUID id){
         return  jobService.getJobByID(id);
     }
+
 
 
 }

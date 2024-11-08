@@ -5,7 +5,9 @@ import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class JobService {
@@ -31,5 +33,14 @@ public class JobService {
                 .orElseThrow(() -> new RuntimeException("Job not found with the id : " + id));
         Company company = job.getCompany();
         return new JobDTO(job, company);
+    }
+
+    public List<JobDTO> getAllJobs() {
+        List<Job> jobs = jobRepository.findAll();
+        return jobs.stream()
+                .map(job -> new JobDTO(
+                        job,
+                        job.getCompany()
+                )).collect(Collectors.toList());
     }
 }
