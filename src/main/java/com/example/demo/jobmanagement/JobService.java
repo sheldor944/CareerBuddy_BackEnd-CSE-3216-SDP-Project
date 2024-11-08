@@ -13,12 +13,15 @@ public class JobService {
     JobRepository jobRepository;
     @Autowired
     CompanyRepository companyRepository;
-    public Job createJob(JobRequest jobRequest){
+    public JobDTO createJob(JobRequest jobRequest){
         UUID companyID = jobRequest.getCompanyId();
         Company company = companyRepository.findById(companyID)
                 .orElseThrow(() -> new RuntimeException("Company not found with the id : " + companyID ));
+
         Job job = new Job(company, jobRequest);
-        return jobRepository.save(job);
+        jobRepository.save(job);
+
+        return new JobDTO(job, company);
 
 
     }

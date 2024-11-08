@@ -10,9 +10,10 @@ public class JobController {
     JobService jobService;
 
     @PostMapping
-    public Job createJob(@RequestBody JobRequest jobRequest){
+    public JobDTO createJob(@RequestBody JobRequest jobRequest){
         return jobService.createJob(jobRequest);
 //        return null;
     }
+
 
 }
