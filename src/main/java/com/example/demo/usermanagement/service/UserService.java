@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     public User createUser(UserRequest userRequest){
-       User user = new User(userRequest.getEmail(), userRequest.getPassword());
+       User user = new User(userRequest.getName(), userRequest.getEmail(), userRequest.getPassword());
        return userRepository.save(user);
 
     }

@@ -18,6 +18,7 @@ public class User {
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
     private UUID id;
     @Column(nullable = false, unique = true)
+    private String name;
     private String email;
 
     private String password;
@@ -26,7 +27,8 @@ public class User {
 
     private boolean verified;
 
-    public User(String email, String password){
+    public User(String name, String email, String password){
+        this.name=name;
         this.email = email;
         this.password = password;
         this.userRoles = "ROLE_admin";

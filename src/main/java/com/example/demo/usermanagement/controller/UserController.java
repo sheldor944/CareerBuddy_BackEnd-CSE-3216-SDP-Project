@@ -46,6 +46,7 @@ public class UserController {
     @PostMapping("/create-user")
     public AuthDTO createUser(@RequestBody UserRequest userRequest){
         User user = userService.createUser(userRequest);
+        System.out.println(user.getEmail());
         MyUserDetails myUserDetails = new MyUserDetails(user);
         String token = jwtUtil.generateToken(myUserDetails);
         System.out.println(token );
