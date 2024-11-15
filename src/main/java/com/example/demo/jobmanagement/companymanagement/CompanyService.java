@@ -12,7 +12,12 @@ public class CompanyService {
     @Autowired
     CompanyRepository companyRepository;
     public Company createCompany(CompanyRequest companyRequest){
-        Company company = new Company(companyRequest);
+//        Company company = new Company(companyRequest);
+        Company company = new CompanyBuilder()
+                .name(companyRequest.getCompanyName())
+                .domain(companyRequest.getDomain())
+                .location(companyRequest.getLocation())
+                .build();
         return companyRepository.save(company);
     }
 

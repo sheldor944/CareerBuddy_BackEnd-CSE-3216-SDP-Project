@@ -20,7 +20,12 @@ public class JobService {
         Company company = companyRepository.findById(companyID)
                 .orElseThrow(() -> new RuntimeException("Company not found with the id : " + companyID ));
 
-        Job job = new Job(company, jobRequest);
+//        Job job = new Job(company, jobRequest);
+        Job job = new JobBuilder()
+                .company(company)
+                .title(jobRequest.getTitle())
+                .description(jobRequest.getDescription())
+                .build();
         jobRepository.save(job);
 
         return new JobDTO(job, company);
