@@ -43,11 +43,19 @@ public class JobDTO {
         this.jobType = job.getJobType();
         this.deadline = job.getDeadline();
         this.salary = job.getSalary();
-        this.company = new CompanyDTO(
-                company.getId(),
+        this.company =  new CompanyDTO(
                 company.getName(),
+                company.getLocation(),
+                company.getPhoneNumber(),
+                company.getEmail(),
                 company.getDomain(),
-                company.getLocation()
+                company.getWebsite(),
+                company.getDescription(),
+                company.getSize(),
+                company.getFoundationYear(),
+                company.getRegistrationYear(),
+                company.isActive(),
+                company.getId()
         );
     }
 }

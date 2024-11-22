@@ -14,24 +14,32 @@ public class CompanyService {
     public Company createCompany(CompanyRequest companyRequest){
 //        Company company = new Company(companyRequest);
         Company company = new CompanyBuilder()
-                .name(companyRequest.getCompanyName())
-                .domain(companyRequest.getDomain())
-                .location(companyRequest.getLocation())
+                .fromRequest(companyRequest)
                 .build();
+
         return companyRepository.save(company);
     }
 
-    public List<CompanyDTO> getAllCompany(){
+    public List<CompanyDTO> getAllCompany() {
         List<Company> companies = companyRepository.findAll();
         return companies.stream()
                 .map(company -> new CompanyDTO(
-                        company.getId(),
                         company.getName(),
+                        company.getLocation(),
+                        company.getPhoneNumber(),
+                        company.getEmail(),
                         company.getDomain(),
-                        company.getLocation()
+                        company.getWebsite(),
+                        company.getDescription(),
+                        company.getSize(),
+                        company.getFoundationYear(),
+                        company.getRegistrationYear(),
+                        company.isActive(),
+                        company.getId()
                 ))
                 .collect(Collectors.toList());
     }
+
 
     public CompanyDTO getCompanyById(UUID uuid){
         Company company = companyRepository.findById(uuid)
@@ -50,10 +58,18 @@ public class CompanyService {
         List<Company> companies =  companyRepository.findByMultipleFields(name, domain, location);
         return companies.stream()
                 .map(company -> new CompanyDTO(
-                        company.getId(),
                         company.getName(),
+                        company.getLocation(),
+                        company.getPhoneNumber(),
+                        company.getEmail(),
                         company.getDomain(),
-                        company.getLocation()
+                        company.getWebsite(),
+                        company.getDescription(),
+                        company.getSize(),
+                        company.getFoundationYear(),
+                        company.getRegistrationYear(),
+                        company.isActive(),
+                        company.getId()
                 ))
                 .collect(Collectors.toList());
 
