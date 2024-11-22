@@ -5,6 +5,8 @@ import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,12 +22,18 @@ public class JobService {
         Company company = companyRepository.findById(companyID)
                 .orElseThrow(() -> new RuntimeException("Company not found with the id : " + companyID ));
 
-//        Job job = new Job(company, jobRequest);
+
         Job job = new JobBuilder()
                 .company(company)
                 .title(jobRequest.getTitle())
                 .description(jobRequest.getDescription())
+                .location(jobRequest.getLocation())
+                .experience(jobRequest.getExperience())
+                .jobType(jobRequest.getJobType())
+                .deadline(jobRequest.getDeadline())
+                .salary(jobRequest.getSalary())
                 .build();
+
         jobRepository.save(job);
 
         return new JobDTO(job, company);
@@ -49,13 +57,23 @@ public class JobService {
                 )).collect(Collectors.toList());
     }
 
-    public List<JobDTO> searchJobs(String title, String description) {
-        List<Job> jobs = jobRepository.findByMultipleFields(title, description);
+    public List<JobDTO> searchJobs(String title, String description, String location,
+                                   Double experience, String jobType,  Double salary) {
+
+
+        List<Job> jobs = jobRepository.findByMultipleFields(title,location,experience,jobType, salary);
         return jobs.stream()
-                .map(job -> new JobDTO(
-                        job,
-                        job.getCompany()
-                )).collect(Collectors.toList());
-//        return null;
+                .map(job -> new JobDTO(job))
+                .collect(Collectors.toList());
     }
+//    public List<JobDTO> searchJobs(String title, String description) {
+//        List<Job> jobs = jobRepository.findByMultipleFields(title, description);
+//        return jobs.stream()
+//                .map(job -> new JobDTO(
+//                        job,
+//                        job.getCompany()
+//                )).collect(Collectors.toList());
+//    }
+
+//        return null
 }

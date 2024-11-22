@@ -7,6 +7,8 @@
     import lombok.NoArgsConstructor;
     import lombok.Setter;
 
+    import java.time.LocalDateTime;
+    import java.util.Date;
     import java.util.UUID;
 
     @Entity
@@ -24,6 +26,22 @@
         private Company company;
         private String title;
         private String description;
+        private String location;
+        private double experience;
+        private String jobType;
+        @Column(name = "deadline")
+        private LocalDateTime deadline;
+        private double salary;
+        //  Role
+        //- Company
+        //- Description
+        //- Location
+        //- Salary
+        //- Experience (years)
+        //- Total Applicants
+        //- Duration (Part time/ full time)
+        //- Deadline of application
+        //- Company Logo (pic)
 
         public Job(Company company, JobRequest jobRequest){
             this.company = company;
@@ -37,7 +55,14 @@
             this.description = description;
         }
 
-
-
-
+        public Job(Company company, String title, String description, String location, double experience, String jobType, LocalDateTime deadline, double salary) {
+            this.company = company;
+            this.title = title;
+            this.description = description;
+            this.location = location;
+            this.experience = experience;
+            this.jobType = jobType;
+            this.deadline = deadline;
+            this.salary = salary;
+        }
     }

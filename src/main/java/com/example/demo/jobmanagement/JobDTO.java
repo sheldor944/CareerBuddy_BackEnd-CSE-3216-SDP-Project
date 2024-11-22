@@ -4,25 +4,45 @@ import com.example.demo.jobmanagement.companymanagement.Company;
 import com.example.demo.jobmanagement.companymanagement.CompanyDTO;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
 public class JobDTO {
     private UUID id;
-    private String tittle;
+    private String title;
     private String description;
+    private String location;
+    private double experience;
+    private String jobType;
+    private LocalDateTime deadline;
+    private double salary;
     private CompanyDTO company;
 
-    public JobDTO(Job job){
+    // Constructor with all fields
+    public JobDTO(Job job) {
         this.id = job.getId();
-        this.tittle = job.getTitle();
+        this.title = job.getTitle();
         this.description = job.getDescription();
+        this.location = job.getLocation();
+        this.experience = job.getExperience();
+        this.jobType = job.getJobType();
+        this.deadline = job.getDeadline();
+        this.salary = job.getSalary();
+
     }
 
-    public JobDTO(Job job, Company company){
+    // Constructor explicitly taking Job and Company
+    public JobDTO(Job job, Company company) {
         this.id = job.getId();
-        this.tittle = job.getTitle();
+        this.title = job.getTitle();
         this.description = job.getDescription();
+        this.location = job.getLocation();
+        this.experience = job.getExperience();
+        this.jobType = job.getJobType();
+        this.deadline = job.getDeadline();
+        this.salary = job.getSalary();
         this.company = new CompanyDTO(
                 company.getId(),
                 company.getName(),
@@ -30,5 +50,4 @@ public class JobDTO {
                 company.getLocation()
         );
     }
-
 }

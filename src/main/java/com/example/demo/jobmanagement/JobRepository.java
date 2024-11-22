@@ -1,22 +1,29 @@
 package com.example.demo.jobmanagement;
 
-import com.example.demo.jobmanagement.companymanagement.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-@Repository
 public interface JobRepository extends JpaRepository<Job, UUID> {
 
-    @Query(value = "SELECT * FROM jobs j WHERE " +
-            "(:title IS NULL OR j.title ILIKE CONCAT('%', :title, '%')) " +
-            "AND (:description IS NULL OR j.description ILIKE CONCAT('%', :description, '%')) " ,
-            nativeQuery = true)
+    @Query("SELECT j FROM Job j " +
+            "WHERE (:title IS NULL OR j.title LIKE %:title%) " +
+            "AND (:location IS NULL OR j.location LIKE %:location%) " +
+            "AND (:experience IS NULL OR j.experience <= :experience) " +
+            "AND (:jobType IS NULL OR j.jobType LIKE %:jobType%) " +
+            "AND (:salary IS NULL OR j.salary = :salary) " )
     List<Job> findByMultipleFields(@Param("title") String title,
-                                       @Param("description") String description);
+                                   @Param("location") String location,
+                                   @Param("experience") Double experience,
+                                   @Param("jobType") String jobType,
+                                   @Param("salary") Double salary);
+
+
+
+
 }
