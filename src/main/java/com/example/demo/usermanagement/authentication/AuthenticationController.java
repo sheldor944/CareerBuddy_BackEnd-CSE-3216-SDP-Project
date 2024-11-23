@@ -1,5 +1,6 @@
 package com.example.demo.usermanagement.authentication;
 
+import com.example.demo.usermanagement.UserDTO;
 import com.example.demo.usermanagement.models.User;
 import com.example.demo.usermanagement.repository.UserRepository;
 import com.example.demo.usermanagement.service.UserService;
@@ -108,8 +109,10 @@ public class AuthenticationController {
 //        if(!user.isVerified()) {
 //            throw new Exception("User is not verified yet");
 //        }
-
-        return getAuthenticationToken(authenticationRequest);
+        User user = userRepository.findByEmail(authenticationRequest.getEmail())
+                .orElseThrow(() -> new RuntimeException("user not found: " ));
+        UserDTO userDTO = new UserDTO(user.getId(), user.getEmail());
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/authenticate/employee_login", method = RequestMethod.POST)
