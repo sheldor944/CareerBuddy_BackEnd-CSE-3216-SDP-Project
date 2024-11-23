@@ -3,6 +3,9 @@ package com.example.demo;
 import com.example.demo.jobmanagement.JobRepository;
 import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
 import com.example.demo.rolemanagement.RoleRepository;
+import com.example.demo.usermanagement.profileManagement.ProfileRepository;
+import com.example.demo.usermanagement.profileManagement.helperModels.heperRepository.AddressRepository;
+import com.example.demo.usermanagement.profileManagement.helperModels.heperRepository.EducationRepositoy;
 import com.example.demo.usermanagement.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 		UserRepository.class,
 		RoleRepository.class,
 		CompanyRepository.class,
-		JobRepository.class
+		JobRepository.class,
+		ProfileRepository.class,
+		AddressRepository.class,
+		EducationRepositoy.class
 
 })
 @RestController
