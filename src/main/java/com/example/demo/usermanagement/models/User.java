@@ -1,6 +1,7 @@
 package com.example.demo.usermanagement.models;
 
 import com.example.demo.rolemanagement.Role;
+import com.example.demo.usermanagement.profileManagement.Profile;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,8 @@ public class User {
     private String userRoles;
 
     private boolean verified;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Profile profile;
 
     public User(String name, String email, String password){
         this.name=name;

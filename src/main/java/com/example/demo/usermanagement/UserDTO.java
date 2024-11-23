@@ -9,8 +9,7 @@ public class UserDTO {
     private String email;
     private UUID id;
 
-    public UserDTO(String email, UUID id ) {
-        this.email = email;
+    public UserDTO( UUID id ) {
         this.id = id;
     }
 }

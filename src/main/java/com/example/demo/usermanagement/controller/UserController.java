@@ -2,6 +2,7 @@ package com.example.demo.usermanagement.controller;
 
 
 import com.example.demo.usermanagement.AuthDTO;
+import com.example.demo.usermanagement.UserDTO;
 import com.example.demo.usermanagement.UserRequest;
 import com.example.demo.usermanagement.authentication.AuthenticationResponse;
 import com.example.demo.usermanagement.models.User;
@@ -44,13 +45,14 @@ public class UserController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
     @PostMapping("/create-user")
-    public AuthDTO createUser(@RequestBody UserRequest userRequest){
+    public UserDTO createUser(@RequestBody UserRequest userRequest){
         User user = userService.createUser(userRequest);
         System.out.println(user.getEmail());
         MyUserDetails myUserDetails = new MyUserDetails(user);
         String token = jwtUtil.generateToken(myUserDetails);
         System.out.println(token );
-        return new AuthDTO(token);
+//        return new AuthDTO(token);
+        return new UserDTO(user.getId());
     }
 
 
