@@ -10,10 +10,10 @@ public class JobBuilder {
     private String title;
     private String description;
     private String location;
-    private double experience;
+    private int experience;
     private String jobType;
     private LocalDateTime deadline;
-    private double salary;
+    private int salary;
 
     public JobBuilder company(Company company) {
         this.company = company;
@@ -35,7 +35,7 @@ public class JobBuilder {
         return this;
     }
 
-    public JobBuilder experience(double experience) {
+    public JobBuilder experience(int experience) {
         this.experience = experience;
         return this;
     }
@@ -50,7 +50,7 @@ public class JobBuilder {
         return this;
     }
 
-    public JobBuilder salary(double salary) {
+    public JobBuilder salary(int salary) {
         this.salary = salary;
         return this;
     }

@@ -19,9 +19,9 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
             "AND (:salary IS NULL OR j.salary = :salary) " )
     List<Job> findByMultipleFields(@Param("title") String title,
                                    @Param("location") String location,
-                                   @Param("experience") Double experience,
+                                   @Param("experience") int experience,
                                    @Param("jobType") String jobType,
-                                   @Param("salary") Double salary);
+                                   @Param("salary") int salary);
 
 
 

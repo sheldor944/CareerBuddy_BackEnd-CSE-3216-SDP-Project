@@ -14,10 +14,10 @@ public class JobDTO {
     private String title;
     private String description;
     private String location;
-    private double experience;
+    private int experience;
     private String jobType;
     private LocalDateTime deadline;
-    private double salary;
+    private int salary;
     private CompanyDTO company;
 
     // Constructor with all fields

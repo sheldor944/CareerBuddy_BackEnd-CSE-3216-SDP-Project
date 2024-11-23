@@ -2,6 +2,7 @@ package com.example.demo.jobmanagement;
 
 import com.example.demo.jobmanagement.companymanagement.Company;
 import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
+import com.example.demo.searchFacade.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,15 +58,25 @@ public class JobService {
                 )).collect(Collectors.toList());
     }
 
-    public List<JobDTO> searchJobs(String title, String description, String location,
-                                   Double experience, String jobType,  Double salary) {
-
-
-        List<Job> jobs = jobRepository.findByMultipleFields(title,location,experience,jobType, salary);
-        return jobs.stream()
-                .map(job -> new JobDTO(job))
-                .collect(Collectors.toList());
+    public List<JobDTO> searchJobs(SearchCriteria criteria) {
+        return jobRepository.findByMultipleFields(
+                criteria.getJobTitle(),
+                criteria.getLocation(),
+                criteria.getMinExperience(),
+                criteria.getJobType(),
+                criteria.getMinSalary()
+        ).stream().map(JobDTO::new).collect(Collectors.toList());
     }
+
+//    public List<JobDTO> searchJobs(String title, String description, String location,
+//                                   int experience, String jobType,  int salary) {
+//
+//
+//        List<Job> jobs = jobRepository.findByMultipleFields(title,location,experience,jobType, salary);
+//        return jobs.stream()
+//                .map(job -> new JobDTO(job))
+//                .collect(Collectors.toList());
+//    }
 //    public List<JobDTO> searchJobs(String title, String description) {
 //        List<Job> jobs = jobRepository.findByMultipleFields(title, description);
 //        return jobs.stream()

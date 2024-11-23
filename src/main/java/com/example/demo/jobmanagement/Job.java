@@ -27,21 +27,12 @@
         private String title;
         private String description;
         private String location;
-        private double experience;
+        private int experience;
         private String jobType;
         @Column(name = "deadline")
         private LocalDateTime deadline;
-        private double salary;
-        //  Role
-        //- Company
-        //- Description
-        //- Location
-        //- Salary
-        //- Experience (years)
-        //- Total Applicants
-        //- Duration (Part time/ full time)
-        //- Deadline of application
-        //- Company Logo (pic)
+        private int salary;
+
 
         public Job(Company company, JobRequest jobRequest){
             this.company = company;
@@ -55,7 +46,7 @@
             this.description = description;
         }
 
-        public Job(Company company, String title, String description, String location, double experience, String jobType, LocalDateTime deadline, double salary) {
+        public Job(Company company, String title, String description, String location, int experience, String jobType, LocalDateTime deadline, int salary) {
             this.company = company;
             this.title = title;
             this.description = description;
