@@ -15,4 +15,6 @@ public class ProfileRequest {
     private String bio;
     private String email;
     private String phoneNumber;
+    private String role;
+    private String address;
 }

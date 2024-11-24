@@ -13,12 +13,14 @@ public class ProfileConroller {
 
     @PostMapping
     public ProfileDTO createProfile(@RequestBody ProfileRequest profileRequest){
+        System.out.println("hitted sucessfully");
         return profileService.createProfile(profileRequest);
 //        return null ;
     }
 
     @GetMapping("/{id}")
     public ProfileDTO getProbileByUserID(@PathVariable UUID id){
+        System.out.println("hitted sucessfully");
         return profileService.getProfileByUserID(id);
     }
 }

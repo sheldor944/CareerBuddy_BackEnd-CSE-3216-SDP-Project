@@ -13,14 +13,19 @@ public class ProfileDTO {
     private String bio;
     private String email;
     private String phoneNumber;
+    private String role;
+    private String address;
 
     private UserDTO userDTO ;
 
-    public ProfileDTO(UUID id, String name, String bio, String email, String phoneNumber) {
+    public ProfileDTO(UUID id, String name, String bio, String email, String phoneNumber,String role,String address) {
         this.id = id;
         this.name = name;
         this.bio = bio;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.address = address;
     }
+
 }

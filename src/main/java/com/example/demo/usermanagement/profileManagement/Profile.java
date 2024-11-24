@@ -22,7 +22,10 @@ public class Profile {
     private String bio;
     private String email;
     private String phoneNumber;
+    private String role;
+    private String address;
 
+    @Setter
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", unique = true)
     private User user;
@@ -34,5 +37,7 @@ public class Profile {
         this.bio = profileRequest.getBio();
         this.email = profileRequest.getEmail();
         this.phoneNumber = profileRequest.getPhoneNumber();
+        this.role = profileRequest.getRole();
+        this.address = profileRequest.getAddress();
     }
 }

@@ -27,19 +27,24 @@ public class ProfileService {
                 profile.getName(),
                 profile.getBio(),
                 profile.getEmail(),
-                profile.getPhoneNumber()
+                profile.getPhoneNumber(),
+                profile.getRole(),
+                profile.getAddress()
         );
         return profileDTO;
     }
 
     public ProfileDTO getProfileByUserID(UUID id){
+        System.out.println(id);
         Profile profile = profileRepository.findByUserId(id);
         return new ProfileDTO(
                 profile.getId(),
                 profile.getName(),
                 profile.getBio(),
                 profile.getEmail(),
-                profile.getPhoneNumber()
+                profile.getPhoneNumber(),
+                profile.getRole(),
+                profile.getAddress()
         ) ;
     }
 }
