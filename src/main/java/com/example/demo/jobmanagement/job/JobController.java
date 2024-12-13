@@ -1,12 +1,10 @@
-package com.example.demo.jobmanagement;
+package com.example.demo.jobmanagement.job;
 
+import com.example.demo.jobmanagement.jobApplication.JobApplicationDTO;
 import com.example.demo.searchFacade.SearchCriteria;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +34,8 @@ public class JobController {
     public List<JobDTO> searchJobs(@ModelAttribute SearchCriteria searchCriteria) {
         return jobService.searchJobs(searchCriteria);
     }
+
+
 
 //    @GetMapping("/search")
 //    public List<JobDTO> searchJobs(

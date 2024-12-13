@@ -1,10 +1,8 @@
-package com.example.demo.jobmanagement;
+package com.example.demo.jobmanagement.job;
 
-import com.example.demo.jobmanagement.companymanagement.Company;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Data

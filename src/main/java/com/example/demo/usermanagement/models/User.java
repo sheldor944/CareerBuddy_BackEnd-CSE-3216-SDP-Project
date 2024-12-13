@@ -1,11 +1,14 @@
 package com.example.demo.usermanagement.models;
 
+import com.example.demo.jobmanagement.jobApplication.JobApplication;
+import com.example.demo.jobmanagement.jobApplication.meeting.Meeting;
 import com.example.demo.rolemanagement.Role;
 import com.example.demo.usermanagement.profileManagement.Profile;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,6 +32,12 @@ public class User {
     private boolean verified;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Profile profile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<JobApplication> jobApplications;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Meeting> meetings;
 
     public User(String name, String email, String password){
         this.name=name;

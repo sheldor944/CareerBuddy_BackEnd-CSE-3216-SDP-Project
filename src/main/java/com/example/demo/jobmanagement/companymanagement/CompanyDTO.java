@@ -1,7 +1,6 @@
 package com.example.demo.jobmanagement.companymanagement;
 
-import com.example.demo.jobmanagement.Job;
-import com.example.demo.jobmanagement.JobDTO;
+import com.example.demo.jobmanagement.job.JobDTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;

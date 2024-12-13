@@ -1,7 +1,7 @@
 package com.example.demo.searchFacade;
 
-import com.example.demo.jobmanagement.JobDTO;
-import com.example.demo.jobmanagement.JobService;
+import com.example.demo.jobmanagement.job.JobDTO;
+import com.example.demo.jobmanagement.job.JobService;
 import com.example.demo.jobmanagement.companymanagement.CompanyDTO;
 import com.example.demo.jobmanagement.companymanagement.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;

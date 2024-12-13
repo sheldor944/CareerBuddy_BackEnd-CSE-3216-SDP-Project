@@ -1,14 +1,13 @@
-    package com.example.demo.jobmanagement;
+    package com.example.demo.jobmanagement.job;
 
     import com.example.demo.jobmanagement.companymanagement.Company;
+    import com.example.demo.jobmanagement.jobApplication.JobApplication;
     import jakarta.persistence.*;
     import lombok.Data;
-    import lombok.Getter;
     import lombok.NoArgsConstructor;
-    import lombok.Setter;
 
     import java.time.LocalDateTime;
-    import java.util.Date;
+    import java.util.List;
     import java.util.UUID;
 
     @Entity
@@ -32,6 +31,9 @@
         @Column(name = "deadline")
         private LocalDateTime deadline;
         private int salary;
+
+        @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<JobApplication> jobApplications;
 
 
         public Job(Company company, JobRequest jobRequest){

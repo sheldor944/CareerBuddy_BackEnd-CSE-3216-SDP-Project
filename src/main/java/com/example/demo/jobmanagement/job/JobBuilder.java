@@ -1,9 +1,8 @@
-package com.example.demo.jobmanagement;
+package com.example.demo.jobmanagement.job;
 
 import com.example.demo.jobmanagement.companymanagement.Company;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class JobBuilder {
     private Company company;

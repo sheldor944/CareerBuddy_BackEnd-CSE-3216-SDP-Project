@@ -1,7 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.jobmanagement.JobRepository;
+import com.example.demo.jobmanagement.job.JobRepository;
 import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
+import com.example.demo.jobmanagement.jobApplication.JobApplicationRepository;
 import com.example.demo.rolemanagement.RoleRepository;
 import com.example.demo.usermanagement.profileManagement.ProfileRepository;
 import com.example.demo.usermanagement.repository.UserRepository;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 		RoleRepository.class,
 		CompanyRepository.class,
 		JobRepository.class,
-		ProfileRepository.class
+		ProfileRepository.class,
+		JobApplicationRepository.class
 
 })
 @RestController

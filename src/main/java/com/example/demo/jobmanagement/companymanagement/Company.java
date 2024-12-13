@@ -1,11 +1,9 @@
 package com.example.demo.jobmanagement.companymanagement;
 
-import com.example.demo.jobmanagement.Job;
+import com.example.demo.jobmanagement.job.Job;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;

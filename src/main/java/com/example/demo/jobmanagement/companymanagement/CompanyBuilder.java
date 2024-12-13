@@ -1,6 +1,6 @@
 package com.example.demo.jobmanagement.companymanagement;
 
-import com.example.demo.jobmanagement.Job;
+import com.example.demo.jobmanagement.job.Job;
 
 import java.time.LocalDateTime;
 import java.util.List;

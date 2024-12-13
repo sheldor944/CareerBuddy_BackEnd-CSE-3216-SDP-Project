@@ -1,6 +1,6 @@
 package com.example.demo.searchFacade;
 
-import com.example.demo.jobmanagement.JobDTO;
+import com.example.demo.jobmanagement.job.JobDTO;
 import com.example.demo.jobmanagement.companymanagement.CompanyDTO;
 import lombok.Data;
 

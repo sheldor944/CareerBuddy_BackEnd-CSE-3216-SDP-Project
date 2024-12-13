@@ -1,13 +1,16 @@
-package com.example.demo.jobmanagement;
+package com.example.demo.jobmanagement.job;
 
 import com.example.demo.jobmanagement.companymanagement.Company;
 import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
+import com.example.demo.jobmanagement.jobApplication.JobApplication;
+import com.example.demo.jobmanagement.jobApplication.JobApplicationDTO;
 import com.example.demo.searchFacade.SearchCriteria;
+import com.example.demo.usermanagement.models.User;
+import com.example.demo.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,10 +21,13 @@ public class JobService {
     JobRepository jobRepository;
     @Autowired
     CompanyRepository companyRepository;
-    public JobDTO createJob(JobRequest jobRequest){
+    @Autowired
+    UserRepository userRepository;
+
+    public JobDTO createJob(JobRequest jobRequest) {
         UUID companyID = jobRequest.getCompanyId();
         Company company = companyRepository.findById(companyID)
-                .orElseThrow(() -> new RuntimeException("Company not found with the id : " + companyID ));
+                .orElseThrow(() -> new RuntimeException("Company not found with the id : " + companyID));
 
 
         Job job = new JobBuilder()
@@ -87,4 +93,7 @@ public class JobService {
 //    }
 
 //        return null
+//}
+
+
 }
