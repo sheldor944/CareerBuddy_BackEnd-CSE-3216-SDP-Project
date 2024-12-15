@@ -11,14 +11,19 @@ public class ProfileController {
     @Autowired
     ProfileService profileService;
 
-    @PostMapping
-    public ProfileDTO createProfile(@RequestBody ProfileRequest profileRequest){
-        return profileService.createProfile(profileRequest);
+    @PostMapping("/{id}")
+    public ProfileDTO createProfile(@PathVariable UUID id, @RequestBody ProfileRequest profileRequest){
+        return profileService.createProfile(id, profileRequest);
 //        return null ;
     }
 
     @GetMapping("/{id}")
     public ProfileDTO getProfileByUserID(@PathVariable UUID id){
         return profileService.getProfileByUserID(id);
+    }
+
+    @PutMapping("/{id}")
+    public ProfileDTO updateProfile(@PathVariable UUID id, @RequestBody ProfileRequest profileRequest){
+        return profileService.updateProfile(id, profileRequest);
     }
 }
