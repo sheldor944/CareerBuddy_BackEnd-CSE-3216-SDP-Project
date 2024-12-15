@@ -3,14 +3,17 @@ package com.example.demo.usermanagement.profileManagement.skill;
 import com.example.demo.usermanagement.profileManagement.Profile;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "skills")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 public class Skill {
     @Id

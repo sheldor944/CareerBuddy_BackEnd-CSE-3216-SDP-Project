@@ -36,44 +36,46 @@ public class ProfileService {
         for (SkillDTO skillDTO : profileRequest.getReadySkills()) {
             Skill skill = skillRepository.findById(skillDTO.getId())
                     .orElseThrow(() -> new RuntimeException("Skill not found with the id : " + skillDTO.getId()));
+//            readySkills.add(skill);
             readySkills.add(skill);
         }
 
         // Add only new skills to the database
-//        Set<Skill> newSkills = new HashSet<>();
-//        for (SkillRequest skillRequest : profileRequest.getNewSkills()) {
-//            Skill existingSkill = skillRepository.findByName(skillRequest.getName());
-//            if (existingSkill == null) {
-//
-//                Skill newSkill = new Skill(skillRequest);
-//                skillRepository.save(newSkill); // Save the new skill
-//                newSkills.add(newSkill); // Add to the set of new skills
-//            } else {
-//                newSkills.add(existingSkill); // Add existing skill to the set
-//            }
-//        }
+        Set<Skill> newSkills = new HashSet<>();
+        for (SkillRequest skillRequest : profileRequest.getNewSkills()) {
+            Skill existingSkill = skillRepository.findByName(skillRequest.getName());
+            if (existingSkill == null) {
+
+                Skill newSkill = new Skill(skillRequest);
+                skillRepository.save(newSkill); // Save the new skill
+                newSkills.add(newSkill); // Add to the set of new skills
+            } else {
+
+                newSkills.add(existingSkill); // Add existing skill to the set
+            }
+        }
 
         // Combine ready skills (existing) and new skills
-//        Set<Skill> allSkills = new HashSet<>(readySkills);
-//        allSkills.addAll(newSkills);
+        Set<Skill> allSkills = new HashSet<>(readySkills);
+        allSkills.addAll(newSkills);
 
         // Create and save the profile
-//        Profile profile = new Profile(profileRequest);
-//        profile.setUser(user);
-////        profile.setSkills(allSkills);
-//        profile = profileRepository.save(profile);
-//
-//        // Map to DTO and return
-//        ProfileDTO profileDTO = new ProfileDTO(
-//                profile.getId(),
-//                profile.getName(),
-//                profile.getBio(),
-//                profile.getEmail(),
-//                profile.getPhoneNumber(),
-//                profile.getSkills()
-//        );
-//        return profileDTO;
-        return null;
+        Profile profile = new Profile(profileRequest);
+        profile.setUser(user);
+        profile.setSkills(allSkills);
+        profile = profileRepository.save(profile);
+
+        // Map to DTO and return
+        ProfileDTO profileDTO = new ProfileDTO(
+                profile.getId(),
+                profile.getName(),
+                profile.getBio(),
+                profile.getEmail(),
+                profile.getPhoneNumber(),
+                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+        );
+        return profileDTO;
+//        return null;
     }
 
 //
@@ -87,7 +89,7 @@ public class ProfileService {
                 profile.getBio(),
                 profile.getEmail(),
                 profile.getPhoneNumber(),
-                profile.getSkills()
+                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
         ) ;
     }
 }

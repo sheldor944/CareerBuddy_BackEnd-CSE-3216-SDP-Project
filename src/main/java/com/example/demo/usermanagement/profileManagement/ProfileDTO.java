@@ -2,6 +2,7 @@ package com.example.demo.usermanagement.profileManagement;
 
 import com.example.demo.usermanagement.UserDTO;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
+import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
 import lombok.Data;
 
 import java.util.Set;
@@ -16,10 +17,10 @@ public class ProfileDTO {
     private String email;
     private String phoneNumber;
 
-    private Set<Skill> skillSet;
+    private Set<SkillDTO> skillSet;
     private UserDTO userDTO ;
 
-    public ProfileDTO(UUID id, String name, String bio, String email, String phoneNumber, Set<Skill> skillSet) {
+    public ProfileDTO(UUID id, String name, String bio, String email, String phoneNumber, Set<SkillDTO> skillSet) {
         this.id = id;
         this.name = name;
         this.bio = bio;
