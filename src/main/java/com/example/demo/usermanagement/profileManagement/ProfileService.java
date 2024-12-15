@@ -144,15 +144,47 @@ public class ProfileService {
         );
         return profileDTO;
     }
+    public List<JobDTO> sortJobsBySkillMatch(Set<Skill> profileSkills, List<Job> jobs) {
+        return jobs.stream()
+                .sorted((job1, job2) -> {
+                    // Calculate match counts for both jobs
+                    long matchesForJob1 = job1.getSkills().stream().filter(profileSkills::contains).count();
+                    long matchesForJob2 = job2.getSkills().stream().filter(profileSkills::contains).count();
+
+                    // Check if they are complete matches
+                    boolean isCompleteMatch1 = job1.getSkills().containsAll(profileSkills);
+                    boolean isCompleteMatch2 = job2.getSkills().containsAll(profileSkills);
+
+                    // Prioritize complete matches first, then sort by match count
+                    if (isCompleteMatch1 && !isCompleteMatch2) {
+                        return -1; // job1 is a complete match, comes first
+                    } else if (!isCompleteMatch1 && isCompleteMatch2) {
+                        return 1; // job2 is a complete match, comes first
+                    }
+
+                    // If both are complete or neither, sort by match count
+                    return Long.compare(matchesForJob2, matchesForJob1);
+                })
+                .map(job -> new JobDTO(
+                        job,
+                        job.getCompany(),
+                        job.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+                ))
+                .collect(Collectors.toList());
+    }
+
 
     public List<JobDTO> getRecommendation(UUID id) {
         Set<Skill> skills = profileRepository.findSkillsByProfileId(id);
         List<Job> jobs = jobRepository.findJobsBySkills(skills);
-        return jobs.stream().map(job -> new JobDTO(
-                job,
-                job.getCompany(), // Ensure job.getCompany() is not null
-                job.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
-        )).collect(Collectors.toList());
+
+        List<JobDTO> result = sortJobsBySkillMatch(skills, jobs);
+        return result;
+//        return jobs.stream().map(job -> new JobDTO(
+//                job,
+//                job.getCompany(), // Ensure job.getCompany() is not null
+//                job.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+//        )).collect(Collectors.toList());
 
     }
 
