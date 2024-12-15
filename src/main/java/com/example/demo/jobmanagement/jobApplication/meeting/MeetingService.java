@@ -109,4 +109,60 @@ public class MeetingService {
         List<Meeting> meetings = meetingRepository.findByUserId(userId);
         return meetings.stream().map(MeetingDTO::new).toList();
     }
+
+    public List<MeetingDTO> getMeetingsByJobId(UUID jobId) {
+        List<JobApplication> jobApplications = jobApplicationRepository.findByJobId(jobId);
+        List<Meeting> meetings = new ArrayList<>();
+        for(JobApplication jobApplication : jobApplications) {
+            meetings.addAll(meetingRepository.findByJobApplicationId(jobApplication.getId()));
+        }
+        return meetings.stream().map(MeetingDTO::new).toList();
+    }
+
+    public void deleteMeeting(UUID meetingId) {
+        Meeting meeting = meetingRepository.findById(meetingId)
+                .orElseThrow(() -> new RuntimeException("Meeting not found with the id : " + meetingId));
+        meetingRepository.delete(meeting);
+    }
+
+    public MeetingDTO updateMeeting(UUID meetingId, MeetingRequest meetingRequest) {
+        Meeting current_meeting = meetingRepository.findById(meetingId)
+                .orElseThrow(() -> new RuntimeException("Meeting not found with the id : " + meetingId));
+
+        boolean flag = false ;
+        LocalDateTime startTime = meetingRequest.getStartTime();
+        LocalDateTime endTime = meetingRequest.getEndTime();
+        List<Meeting> meetings = meetingRepository.findByUserId(meetingRequest.getUserId());
+
+        for(Meeting meeting : meetings) {
+            LocalDateTime meetingStartTime = meeting.getStartTime();
+            LocalDateTime meetingEndTime = meeting.getEndTime();
+            if( (meetingStartTime.isBefore(startTime) || meetingStartTime.isEqual(startTime) ) &&
+                    (meetingEndTime.isAfter(startTime) || meetingEndTime.isEqual(startTime) || meetingEndTime.isAfter(endTime) || meetingEndTime.isEqual(endTime)) ) {
+                flag = true;
+                break ;
+            }
+            else if ( (meetingStartTime.isAfter(startTime) || meetingStartTime.isEqual(startTime) ) &&
+                    (meetingStartTime.isBefore(endTime) || meetingEndTime.isAfter(endTime) || meetingEndTime.isEqual(endTime)) ) {
+                flag = true ;
+                break ;
+            }
+        }
+        if(flag) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", "User already has a meeting scheduled at this time");
+
+//            return ResponseEntity
+//                    .status(HttpStatus.CONFLICT) // 409 Conflict
+//                    .body(response);
+
+            throw new RuntimeException("User already has a meeting scheduled at this time");
+        }
+
+        current_meeting.setStartTime(meetingRequest.getStartTime());
+        current_meeting.setEndTime(meetingRequest.getEndTime());
+        meetingRepository.save(current_meeting);
+        return new MeetingDTO(current_meeting);
+    }
 }

@@ -33,9 +33,24 @@ public class MeetingController {
         return meetingService.getMeetingsByUserId(userId);
     }
 
+    @GetMapping("/job/{jobId}")
+    public List<MeetingDTO> getMeetingsByJobId(@PathVariable UUID jobId) {
+        return meetingService.getMeetingsByJobId(jobId);
+    }
+
     @PostMapping("/create")
     public MeetingDTO createMeeting(@RequestBody MeetingRequest meetingRequest) {
         return meetingService.createMeeting(meetingRequest);
+    }
+
+    @DeleteMapping("/delete/{meetingId}")
+    public void deleteMeeting(@PathVariable UUID meetingId) {
+        meetingService.deleteMeeting(meetingId);
+    }
+
+    @PutMapping("/update/{meetingId}")
+    public MeetingDTO updateMeeting(@PathVariable UUID meetingId, @RequestBody MeetingRequest meetingRequest) {
+        return meetingService.updateMeeting(meetingId, meetingRequest);
     }
 
 

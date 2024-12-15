@@ -11,5 +11,6 @@ public class UserDTO {
 
     public UserDTO( UUID id , String email) {
         this.id = id;
+        this.email = email;
     }
 }

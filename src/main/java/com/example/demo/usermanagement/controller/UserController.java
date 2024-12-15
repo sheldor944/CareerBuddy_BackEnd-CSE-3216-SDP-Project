@@ -52,6 +52,7 @@ public class UserController {
         String token = jwtUtil.generateToken(myUserDetails);
         System.out.println(token );
 //        return new AuthDTO(token);
+        UserDTO userDTO = new UserDTO(user.getId(), user.getEmail());
         return new UserDTO(user.getId(), user.getEmail());
     }
 

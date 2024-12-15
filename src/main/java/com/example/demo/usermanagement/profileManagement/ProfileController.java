@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/profile")
-public class ProfileConroller {
+public class ProfileController {
     @Autowired
     ProfileService profileService;
 
@@ -18,7 +18,7 @@ public class ProfileConroller {
     }
 
     @GetMapping("/{id}")
-    public ProfileDTO getProbileByUserID(@PathVariable UUID id){
+    public ProfileDTO getProfileByUserID(@PathVariable UUID id){
         return profileService.getProfileByUserID(id);
     }
 }
