@@ -1,5 +1,8 @@
 package com.example.demo.usermanagement.profileManagement;
 
+import com.example.demo.jobmanagement.job.Job;
+import com.example.demo.jobmanagement.job.JobDTO;
+import com.example.demo.jobmanagement.job.JobRepository;
 import com.example.demo.usermanagement.models.User;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
@@ -9,10 +12,7 @@ import com.example.demo.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,6 +25,9 @@ public class ProfileService {
 
     @Autowired
     SkillRepository skillRepository;
+
+    @Autowired
+    JobRepository jobRepository;
 
     public ProfileDTO createProfile(UUID user_id, ProfileRequest profileRequest) {
 
@@ -140,5 +143,23 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
         );
         return profileDTO;
+    }
+
+    public List<JobDTO> getRecommendation(UUID id) {
+        Set<Skill> skills = profileRepository.findSkillsByProfileId(id);
+        List<Job> jobs = jobRepository.findJobsBySkills(skills);
+        return jobs.stream().map(job -> new JobDTO(
+                job,
+                job.getCompany(), // Ensure job.getCompany() is not null
+                job.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+        )).collect(Collectors.toList());
+
+    }
+
+    public Set<SkillDTO> getSkillsByProfileId(UUID id) {
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Profile not found with the id : " + id));
+        Set<Skill> skills = profileRepository.findSkillsByProfileId(id);
+        return skills.stream().map(SkillDTO::new).collect(Collectors.toSet());
     }
 }

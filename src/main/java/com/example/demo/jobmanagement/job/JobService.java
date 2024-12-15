@@ -38,6 +38,7 @@ public class JobService {
                 .orElseThrow(() -> new RuntimeException("Company not found with the id : " + companyID));
 
         Set<Skill> skills = Helper.skillOrganizer(jobRequest.getNewSkills(), jobRequest.getExistingSkills(), skillRepository);
+
         Set<SkillDTO> skillDTOSet = skills.stream().map(SkillDTO::new).collect(Collectors.toSet());
         Job job = new JobBuilder()
                 .company(company)

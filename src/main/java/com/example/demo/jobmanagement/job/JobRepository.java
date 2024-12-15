@@ -1,10 +1,12 @@
 package com.example.demo.jobmanagement.job;
 
+import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface JobRepository extends JpaRepository<Job, UUID> {
@@ -23,4 +25,8 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
 
 
     List<Job> findByCompanyId(UUID companyId);
+
+    @Query("SELECT DISTINCT j FROM Job j JOIN j.skills s WHERE s IN :skills")
+    List<Job> findJobsBySkills(@Param("skills") Set<Skill> skills);
+
 }

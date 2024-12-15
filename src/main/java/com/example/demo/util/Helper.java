@@ -15,15 +15,21 @@ public class Helper {
     public static Set<Skill> skillOrganizer(Set<SkillRequest> skillRequests, Set<SkillDTO> skillDTOSet, SkillRepository skillRepository){
         // Ensure all 'ready skills' exist in the database
         Set<Skill> readySkills = new HashSet<>();
-        for (SkillDTO skillDTO : skillDTOSet) {
-            Skill skill = skillRepository.findById(skillDTO.getId())
-                    .orElseThrow(() -> new RuntimeException("Skill not found with the id : " + skillDTO.getId()));
+        if(skillDTOSet != null){
+            for (SkillDTO skillDTO : skillDTOSet) {
+                Skill skill = skillRepository.findById(skillDTO.getId())
+                        .orElseThrow(() -> new RuntimeException("Skill not found with the id : " + skillDTO.getId()));
 //            readySkills.add(skill);
-            readySkills.add(skill);
+                readySkills.add(skill);
+            }
         }
+
 
         // Add only new skills to the database
         Set<Skill> newSkills = new HashSet<>();
+        if(skillRequests == null){
+            return readySkills;
+        }
         for (SkillRequest skillRequest : skillRequests) {
             Skill existingSkill = skillRepository.findByName(skillRequest.getName());
             if (existingSkill == null) {
