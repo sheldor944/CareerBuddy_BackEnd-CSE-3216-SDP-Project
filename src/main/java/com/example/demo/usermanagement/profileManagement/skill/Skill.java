@@ -1,5 +1,6 @@
 package com.example.demo.usermanagement.profileManagement.skill;
 
+import com.example.demo.jobmanagement.job.Job;
 import com.example.demo.usermanagement.profileManagement.Profile;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class Skill {
 
     @ManyToMany(mappedBy = "skills")
     private Set<Profile> profiles;
+
+    @ManyToMany(mappedBy = "skills")
+    private Set<Job> jobs;
 
     public Skill(SkillRequest skillRequest) {
         this.name = skillRequest.getName();

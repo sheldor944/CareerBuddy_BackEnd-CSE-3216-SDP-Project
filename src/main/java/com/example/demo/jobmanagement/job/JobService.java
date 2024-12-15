@@ -6,12 +6,18 @@ import com.example.demo.jobmanagement.jobApplication.JobApplication;
 import com.example.demo.jobmanagement.jobApplication.JobApplicationDTO;
 import com.example.demo.searchFacade.SearchCriteria;
 import com.example.demo.usermanagement.models.User;
+import com.example.demo.usermanagement.profileManagement.skill.Skill;
+import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
+import com.example.demo.usermanagement.profileManagement.skill.SkillRepository;
 import com.example.demo.usermanagement.repository.UserRepository;
+import com.example.demo.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,13 +29,16 @@ public class JobService {
     CompanyRepository companyRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SkillRepository skillRepository;
 
     public JobDTO createJob(JobRequest jobRequest) {
         UUID companyID = jobRequest.getCompanyId();
         Company company = companyRepository.findById(companyID)
                 .orElseThrow(() -> new RuntimeException("Company not found with the id : " + companyID));
 
-
+        Set<Skill> skills = Helper.skillOrganizer(jobRequest.getNewSkills(), jobRequest.getExistingSkills(), skillRepository);
+        Set<SkillDTO> skillDTOSet = skills.stream().map(SkillDTO::new).collect(Collectors.toSet());
         Job job = new JobBuilder()
                 .company(company)
                 .title(jobRequest.getTitle())
@@ -39,13 +48,12 @@ public class JobService {
                 .jobType(jobRequest.getJobType())
                 .deadline(jobRequest.getDeadline())
                 .salary(jobRequest.getSalary())
+                .skill(skills)
                 .build();
 
         jobRepository.save(job);
-
-        return new JobDTO(job, company);
-
-
+//        return null;
+        return new JobDTO(job, company, skillDTOSet);
     }
 
     public JobDTO getJobByID(UUID id) {

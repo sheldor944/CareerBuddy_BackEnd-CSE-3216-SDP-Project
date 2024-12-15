@@ -1,8 +1,10 @@
 package com.example.demo.jobmanagement.job;
 
 import com.example.demo.jobmanagement.companymanagement.Company;
+import com.example.demo.usermanagement.profileManagement.skill.Skill;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class JobBuilder {
     private Company company;
@@ -13,6 +15,13 @@ public class JobBuilder {
     private String jobType;
     private LocalDateTime deadline;
     private int salary;
+
+    private Set<Skill> skill ;
+
+    public JobBuilder skill(Set<Skill> skill) {
+        this.skill = skill;
+        return this;
+    }
 
     public JobBuilder company(Company company) {
         this.company = company;
@@ -55,6 +64,6 @@ public class JobBuilder {
     }
 
     public Job build() {
-        return new Job(company, title, description, location, experience, jobType, deadline, salary);
+        return new Job(company, title, description, location, experience, jobType, deadline, salary, skill);
     }
 }
