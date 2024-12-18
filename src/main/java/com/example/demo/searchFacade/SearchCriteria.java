@@ -16,11 +16,11 @@ public class SearchCriteria {
     // Fields specific to Job
     private String jobTitle;
     private String jobDescription;
-    private int minExperience;
-    private int maxExperience;
+    private Integer minExperience;
+    private Integer maxExperience;
     private String jobType;
-    private int minSalary;
-    private int maxSalary;
+    private Integer minSalary;
+    private Integer maxSalary;
     private LocalDateTime jobDeadline;
 
     // Fields specific to Company

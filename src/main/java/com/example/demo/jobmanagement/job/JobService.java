@@ -5,6 +5,7 @@ import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
 import com.example.demo.jobmanagement.jobApplication.JobApplication;
 import com.example.demo.jobmanagement.jobApplication.JobApplicationDTO;
 import com.example.demo.searchFacade.SearchCriteria;
+import com.example.demo.searchFacade.SearchFacade;
 import com.example.demo.usermanagement.models.User;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
@@ -74,14 +75,30 @@ public class JobService {
     }
 
     public List<JobDTO> searchJobs(SearchCriteria criteria) {
-        return jobRepository.findByMultipleFields(
-                criteria.getJobTitle(),
-                criteria.getLocation(),
-                criteria.getMinExperience(),
-                criteria.getJobType(),
-                criteria.getMinSalary()
-        ).stream().map(JobDTO::new).collect(Collectors.toList());
+        String title = criteria.getJobTitle() != null ? criteria.getJobTitle() : null;
+        String location = criteria.getLocation() != null ? criteria.getLocation() : null;
+        Integer experience = criteria.getMinExperience() != null ? criteria.getMinExperience() : null;
+        System.out.println("experience = " + experience);
+        String jobType = criteria.getJobType() != null ? criteria.getJobType() : null;
+        Integer salary = criteria.getMinSalary() != null ? criteria.getMinSalary() : null;
+        LocalDateTime deadline = criteria.getJobDeadline() != null ? criteria.getJobDeadline() : null;
+
+        return jobRepository.findByMultipleFields(title, location, experience, jobType, salary, deadline)
+                .stream()
+                .map(JobDTO::new)
+                .collect(Collectors.toList());
     }
+
+//    public List<JobDTO> searchJobs(SearchCriteria criteria) {
+//        System.out.println("criteria in the searchJob = " + criteria);
+//        return jobRepository.findByMultipleFields(
+//                criteria.getJobTitle(),
+//                criteria.getLocation(),
+//                criteria.getMinExperience(),
+//                criteria.getJobType(),
+//                criteria.getMinSalary()
+//        ).stream().map(JobDTO::new).collect(Collectors.toList());
+//    }
 
 //    public List<JobDTO> searchJobs(String title, String description, String location,
 //                                   int experience, String jobType,  int salary) {
