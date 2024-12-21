@@ -54,6 +54,9 @@ public class JobService {
                 .build();
 
         jobRepository.save(job);
+
+        company.postJob(job);
+
 //        return null;
         return new JobDTO(job, company, skillDTOSet);
     }
