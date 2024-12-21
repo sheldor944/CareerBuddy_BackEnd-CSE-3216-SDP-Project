@@ -15,7 +15,7 @@ import java.util.UUID;
 @Table(name = "companies")
 @Data
 @NoArgsConstructor
-public class Company implements NotificationSubject {
+public class Company  {
     @Id
     @GeneratedValue
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
@@ -41,57 +41,6 @@ public class Company implements NotificationSubject {
     private List<Job> jobs;
 
 
-    @Transient
-    private List<NotificationObserver> subscribers = new ArrayList<>();
-
-    // Notification strategies
-    @Transient
-    private List<NotificationStrategy> notificationStrategies = new ArrayList<>();
-
-    // Implement NotificationSubject methods
-    @Override
-    public void addSubscriber(NotificationObserver observer) {
-        subscribers.add(observer);
-    }
-
-    @Override
-    public void removeSubscriber(NotificationObserver observer) {
-        subscribers.remove(observer);
-    }
-
-    @Override
-    public void notifySubscribers(Notification notification) {
-        for (NotificationObserver observer : subscribers) {
-            observer.update(notification);
-        }
-    }
-
-    // Method to post a job and notify subscribers
-    public void postJob(Job job) {
-        // Save job logic would be in service layer
-
-        // Create notification
-        Notification jobNotification = new JobPostingNotification(
-                this.getId(),
-                null, // recipient will be set by specific observers
-                "New job posted: " + job.getTitle(),
-                NotificationType.EMAIL,
-                job.getId()
-        );
-
-        // Notify all subscribers
-        notifySubscribers(jobNotification);
-    }
-
-    // Add notification strategy
-    public void addNotificationStrategy(NotificationStrategy strategy) {
-        notificationStrategies.add(strategy);
-    }
-
-    // Remove notification strategy
-    public void removeNotificationStrategy(NotificationStrategy strategy) {
-        notificationStrategies.remove(strategy);
-    }
 
 
     public Company(CompanyRequest companyRequest){

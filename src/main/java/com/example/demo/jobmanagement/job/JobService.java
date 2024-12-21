@@ -4,6 +4,10 @@ import com.example.demo.jobmanagement.companymanagement.Company;
 import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
 import com.example.demo.jobmanagement.jobApplication.JobApplication;
 import com.example.demo.jobmanagement.jobApplication.JobApplicationDTO;
+import com.example.demo.notification.EmailSender;
+import com.example.demo.notification.SimpleMailMessage;
+import com.example.demo.notification.UserSubscription;
+import com.example.demo.notification.UserSubscriptionRepository;
 import com.example.demo.searchFacade.SearchCriteria;
 import com.example.demo.searchFacade.SearchFacade;
 import com.example.demo.usermanagement.models.User;
@@ -33,6 +37,22 @@ public class JobService {
     @Autowired
     SkillRepository skillRepository;
 
+    @Autowired
+    EmailSender emailSender;
+
+    @Autowired
+    UserSubscriptionRepository userSubscriptionRepository;
+
+    public void notifySubscriber(UUID companyID, Job job){
+        List<UserSubscription> userSubscriptionList = userSubscriptionRepository.findBySubscribedCompany_Id(companyID);
+        for(UserSubscription userSubscription : userSubscriptionList){
+           UUID userID = userSubscription.getUser().getId();
+           String email = userSubscription.getUser().getEmail();
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage(email, "New Job Posting " + job.getTitle() , "A new job has been posted by " + job.getCompany().getName());
+            emailSender.sendEmail(simpleMailMessage);
+        }
+    }
+
     public JobDTO createJob(JobRequest jobRequest) {
         UUID companyID = jobRequest.getCompanyId();
         Company company = companyRepository.findById(companyID)
@@ -54,8 +74,8 @@ public class JobService {
                 .build();
 
         jobRepository.save(job);
-
-        company.postJob(job);
+        notifySubscriber(companyID, job);
+//        company.postJob(job);
 
 //        return null;
         return new JobDTO(job, company, skillDTOSet);

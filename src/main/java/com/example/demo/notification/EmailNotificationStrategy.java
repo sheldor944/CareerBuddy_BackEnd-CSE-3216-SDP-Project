@@ -12,9 +12,9 @@ public class EmailNotificationStrategy implements NotificationStrategy {
     @Override
     public void send(Notification notification) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(notification.getRecipientId());
+//        message.setTo(notification.getRecipientId());
         message.setSubject("New Job Notification");
-        message.setText(notification.getMessage());
+//        message.setText(notification.getMessage());
 
         System.out.println("Email sent to " + notification.getRecipientId());
         System.out.println("Message: " + notification.getMessage());

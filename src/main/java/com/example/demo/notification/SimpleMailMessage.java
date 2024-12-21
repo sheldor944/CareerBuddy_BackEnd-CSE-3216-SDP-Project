@@ -1,13 +1,24 @@
 package com.example.demo.notification;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SimpleMailMessage {
-    public void setTo(String recipientId) {
+
+    private String email;
+    private String message;
+    private String subject;
+
+    public SimpleMailMessage() {
     }
 
-    public void setSubject(String newJobNotification) {
+    public SimpleMailMessage(String email, String message, String subject) {
+        this.email = email;
+        this.message = message;
+        this.subject = subject;
     }
 
-    public void setText(String message) {
-
-    }
 }

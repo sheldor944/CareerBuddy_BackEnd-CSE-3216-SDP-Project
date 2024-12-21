@@ -41,12 +41,27 @@ public class SubscriptionService {
         subscription.addNotificationStrategy(emailNotificationStrategy);
 
         // Add subscriber to company (assuming Company class has addSubscriber method)
-        company.addSubscriber(subscription);
-        companyRepository.save(company);
+//        company.addSubscriber(subscription);
+//        companyRepository.save(company);
 
 
         // Save subscription to the database
         UserSubscription userSubscription =  userSubscriptionRepository.save(subscription);
         return new UserSubscriptionDTO(userSubscription.getId(), userSubscription.getUser().getId(), userSubscription.getSubscribedCompany().getId());
+    }
+
+    public UserSubscriptionDTO unsubscriptionHelper(SubscribeRequest subscribeRequest) {
+        Company company = companyRepository.findById(subscribeRequest.getCompanyId())
+                .orElseThrow(() -> new RuntimeException("Company not found with the id : " + subscribeRequest.getCompanyId()));
+        User user = userRepository.findById(subscribeRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with the id : " + subscribeRequest.getUserId()));
+        return unsubscribeFromCompany(user, company);
+    }
+
+    private UserSubscriptionDTO unsubscribeFromCompany(User user, Company company) {
+        UserSubscription subscription = userSubscriptionRepository.findByUserAndSubscribedCompany(user, company)
+                .orElseThrow(() -> new RuntimeException("Subscription not found for user : " + user.getId() + " and company : " + company.getId()));
+        userSubscriptionRepository.delete(subscription);
+        return new UserSubscriptionDTO(subscription.getId(), subscription.getUser().getId(), subscription.getSubscribedCompany().getId());
     }
 }

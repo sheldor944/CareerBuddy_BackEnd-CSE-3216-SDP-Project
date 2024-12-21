@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user_subscriptions")
+@Table(name = "user_subscriptions", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "company_id"})
+})
 @Data
 public class UserSubscription implements NotificationObserver {
     @Id
