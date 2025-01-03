@@ -55,6 +55,20 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
             @Param("salary") Integer salary,
             @Param("deadline") LocalDateTime deadline);
 
+//    @Query("SELECT j FROM Job j " +
+//            "WHERE (:title IS NULL OR CAST(j.title AS string) LIKE CONCAT('%', :title, '%')) " +
+//            "AND (:location IS NULL OR CAST(j.location AS string) LIKE CONCAT('%', :location, '%')) " +
+//            "AND (:experience IS NULL OR j.experience <= :experience) " +
+//            "AND (:jobType IS NULL OR CAST(j.jobType AS string) LIKE CONCAT('%', :jobType, '%')) " +
+//            "AND (:salary IS NULL OR j.salary = :salary) " +
+//            "AND (:deadline IS NULL OR j.deadline <= :deadline)")
+//    List<Job> findByMultipleFields(
+//            @Param("title") String title,
+//            @Param("location") String location,
+//            @Param("experience") Integer experience,
+//            @Param("jobType") String jobType,
+//            @Param("salary") Integer salary,
+//            @Param("deadline") LocalDateTime deadline);
 
 
     List<Job> findByCompanyId(UUID companyId);

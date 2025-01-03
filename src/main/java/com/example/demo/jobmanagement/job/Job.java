@@ -27,9 +27,11 @@
         private Company company;
         private String title;
         private String description;
+//        @Column(columnDefinition = "TEXT")
         private String location;
-        private int experience;
+
         private String jobType;
+        private int experience;
         @Column(name = "deadline")
         private LocalDateTime deadline;
         private int salary;

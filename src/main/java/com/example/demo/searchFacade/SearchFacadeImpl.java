@@ -43,15 +43,27 @@ public class SearchFacadeImpl implements SearchFacade {
     }
 
     private boolean isJobSearchCriteria(SearchCriteria criteria) {
-
-        return criteria.getJobTitle() != null || criteria.getJobDescription() != null ||
-                criteria.getLocation() != null || criteria.getMinExperience() != null ||
-                criteria.getJobType() != null || criteria.getMinSalary() != null ||
+        return criteria.getJobTitle() != null ||
+                criteria.getJobDescription() != null ||
+                criteria.getLocation() != null ||
+                criteria.getMinExperience() != null ||
+                criteria.getMaxExperience() != null ||
+                criteria.getJobType() != null ||
+                criteria.getMinSalary() != null ||
+                criteria.getMaxSalary() != null ||
                 criteria.getJobDeadline() != null;
     }
 
     private boolean isCompanySearchCriteria(SearchCriteria criteria) {
-        return criteria.getCompanyName() != null || criteria.getLocation() != null ||
-                criteria.getDomain() != null;
+        return criteria.getCompanyName() != null ||
+                criteria.getLocation() != null ||
+                criteria.getDomain() != null ||
+                criteria.getPhoneNumber() != null ||
+                criteria.getEmail() != null ||
+                criteria.getWebsite() != null ||
+                criteria.getCompanyDescription() != null ||
+                criteria.getRegistrationYear() != null ||
+                criteria.getFoundationYear() != null ;
+
     }
 }
