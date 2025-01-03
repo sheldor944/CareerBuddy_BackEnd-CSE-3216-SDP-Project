@@ -21,8 +21,10 @@ public class SearchFacadeImpl implements SearchFacade {
         List<JobDTO> jobs = null;
         List<CompanyDTO> companies = null;
 
+        System.out.println("here with criteria: " + criteria);
         // Delegate to JobService if job-related criteria are present
         if (isJobSearchCriteria(criteria)) {
+            System.out.println(criteria);
             jobs = jobService.searchJobs(
                    criteria
             );
@@ -41,9 +43,11 @@ public class SearchFacadeImpl implements SearchFacade {
     }
 
     private boolean isJobSearchCriteria(SearchCriteria criteria) {
+
         return criteria.getJobTitle() != null || criteria.getJobDescription() != null ||
-                criteria.getLocation() != null || criteria.getMinExperience() != -1 ||
-                criteria.getJobType() != null || criteria.getMinSalary() != -1;
+                criteria.getLocation() != null || criteria.getMinExperience() != null ||
+                criteria.getJobType() != null || criteria.getMinSalary() != null ||
+                criteria.getJobDeadline() != null;
     }
 
     private boolean isCompanySearchCriteria(SearchCriteria criteria) {

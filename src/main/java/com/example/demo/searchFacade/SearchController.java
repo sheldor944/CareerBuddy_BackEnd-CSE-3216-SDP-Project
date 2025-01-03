@@ -14,6 +14,8 @@ public class SearchController {
 
     @PostMapping
     public SearchResults search(@RequestBody SearchCriteria criteria) {
+        System.out.println("\n\nReceived search request with criteria: " + criteria);
+//        return null;
         return searchFacade.search(criteria);
     }
 }

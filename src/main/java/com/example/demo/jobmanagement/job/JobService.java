@@ -106,6 +106,14 @@ public class JobService {
         Integer salary = criteria.getMinSalary() != null ? criteria.getMinSalary() : null;
         LocalDateTime deadline = criteria.getJobDeadline() != null ? criteria.getJobDeadline() : null;
 
+        System.out.println("title = " + title);
+        System.out.println("location = " + location);
+        System.out.println("experience = " + experience);
+        System.out.println("jobType = " + jobType);
+        System.out.println("salary = " + salary);
+        System.out.println("deadline = " + deadline);
+
+
         return jobRepository.findByMultipleFields(title, location, experience, jobType, salary, deadline)
                 .stream()
                 .map(JobDTO::new)
