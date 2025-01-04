@@ -111,7 +111,7 @@ public class AuthenticationController {
 //        }
         User user = userRepository.findByEmail(authenticationRequest.getEmail())
                 .orElseThrow(() -> new RuntimeException("user not found: " ));
-        UserDTO userDTO = new UserDTO(user.getId(), user.getEmail());
+        UserDTO userDTO = new UserDTO(user.getId(), user.getEmail(),user.getName());
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 

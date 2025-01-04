@@ -85,7 +85,11 @@ public class JobService {
 
         return jobRepository.findByMultipleFields(title, location, experience, jobType, salary, deadline)
                 .stream()
-                .map(JobDTO::new)
+                .map(job -> new JobDTO(
+                        job,
+                        job.getCompany(),
+                        job.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+                ))
                 .collect(Collectors.toList());
     }
 
