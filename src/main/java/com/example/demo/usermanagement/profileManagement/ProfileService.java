@@ -195,6 +195,9 @@ public class ProfileService {
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Profile not found with the id : " + id));
         Set<Skill> skills = profileRepository.findSkillsByProfileId(id);
+        for(Skill s: skills ){
+            System.out.println(s.getName());
+        }
         return skills.stream().map(SkillDTO::new).collect(Collectors.toSet());
     }
 }
