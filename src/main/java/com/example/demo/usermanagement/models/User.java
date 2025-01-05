@@ -1,5 +1,7 @@
 package com.example.demo.usermanagement.models;
 
+import com.example.demo.jobmanagement.companymanagement.Company;
+import com.example.demo.jobmanagement.job.Job;
 import com.example.demo.jobmanagement.jobApplication.JobApplication;
 import com.example.demo.jobmanagement.jobApplication.meeting.Meeting;
 import com.example.demo.rolemanagement.Role;
@@ -38,6 +40,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Meeting> meetings;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Company> companies;
 
     public User(String name, String email, String password){
         this.name=name;

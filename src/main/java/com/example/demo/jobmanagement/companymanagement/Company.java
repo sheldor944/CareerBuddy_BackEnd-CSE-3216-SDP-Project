@@ -2,6 +2,7 @@ package com.example.demo.jobmanagement.companymanagement;
 
 import com.example.demo.jobmanagement.job.Job;
 import com.example.demo.notification.*;
+import com.example.demo.usermanagement.models.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,10 @@ public class Company  {
     private LocalDateTime foundationYear;
     private String registrationYear;
     private boolean isActive;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
