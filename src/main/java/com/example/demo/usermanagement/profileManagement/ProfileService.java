@@ -75,7 +75,8 @@ public class ProfileService {
                 profile.getBio(),
                 profile.getEmail(),
                 profile.getPhoneNumber(),
-                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
+                profile.getAddress()
         );
         return profileDTO;
 //        return null;
@@ -92,7 +93,8 @@ public class ProfileService {
                 profile.getBio(),
                 profile.getEmail(),
                 profile.getPhoneNumber(),
-                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
+                profile.getAddress()
         ) ;
     }
 
@@ -140,7 +142,8 @@ public class ProfileService {
                 profile.getBio(),
                 profile.getEmail(),
                 profile.getPhoneNumber(),
-                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+                profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
+                profile.getAddress()
         );
         return profileDTO;
     }

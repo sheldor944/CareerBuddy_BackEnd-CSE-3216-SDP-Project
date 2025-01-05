@@ -16,16 +16,18 @@ public class ProfileDTO {
     private String bio;
     private String email;
     private String phoneNumber;
+    private String adress;
 
     private Set<SkillDTO> skillSet;
     private UserDTO userDTO ;
 
-    public ProfileDTO(UUID id, String name, String bio, String email, String phoneNumber, Set<SkillDTO> skillSet) {
+    public ProfileDTO(UUID id, String name, String bio, String email, String phoneNumber, Set<SkillDTO> skillSet, String adress) {
         this.id = id;
         this.name = name;
         this.bio = bio;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.skillSet = skillSet;
+        this.adress = adress;
     }
 }

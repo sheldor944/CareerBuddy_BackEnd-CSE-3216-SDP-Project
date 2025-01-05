@@ -18,6 +18,7 @@ public class ProfileRequest {
     private String bio;
     private String email;
     private String phoneNumber;
+    private String address;
 
     private Set<SkillDTO> readySkills;
 
