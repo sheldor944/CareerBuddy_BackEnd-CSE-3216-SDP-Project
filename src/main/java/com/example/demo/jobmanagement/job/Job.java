@@ -25,16 +25,17 @@
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "company_id")
         private Company company;
+//        @Column(columnDefinition = "TEXT")
         private String title;
         private String description;
 //        @Column(columnDefinition = "TEXT")
         private String location;
 
         private String jobType;
-        private int experience;
+        private Integer experience;
         @Column(name = "deadline")
         private LocalDateTime deadline;
-        private int salary;
+        private Integer salary;
 
         @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
         private List<JobApplication> jobApplications;

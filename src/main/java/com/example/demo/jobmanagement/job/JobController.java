@@ -35,8 +35,12 @@ public class JobController {
         return jobService.searchJobs(searchCriteria);
     }
 
+//    @GetMapping("")
 
-
+    @GetMapping("location/{location}")
+    public List<JobDTO> getJobsByLocation(@PathVariable String location){
+        return jobService.searchJobByLocation(location, location);
+    }
 //    @GetMapping("/search")
 //    public List<JobDTO> searchJobs(
 //            @RequestParam(required = false) String title,

@@ -120,6 +120,13 @@ public class JobService {
                 .collect(Collectors.toList());
     }
 
+    public List<JobDTO> searchJobByLocation(String location, String jobTitle) {
+        return jobRepository.findByLocationAndTitleIgnoreCase(location, jobTitle)
+                .stream()
+                .map(JobDTO::new)
+                .collect(Collectors.toList());
+    }
+
 //    public List<JobDTO> searchJobs(SearchCriteria criteria) {
 //        System.out.println("criteria in the searchJob = " + criteria);
 //        return jobRepository.findByMultipleFields(

@@ -40,9 +40,24 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
 //            @Param("salary") Integer salary);  // Change to Integer to handle null
 //
 
+//    @Query("SELECT j FROM Job j " +
+//            "WHERE (CAST(:title AS string) IS NULL OR j.title LIKE %:title%) " +
+//            "AND (CAST(:location AS string) IS NULL OR j.location LIKE %:location%) " +
+//            "AND (CAST(:experience AS integer) IS NULL OR j.experience <= :experience) " +
+//            "AND (CAST(:jobType AS string) IS NULL OR j.jobType LIKE %:jobType%) " +
+//            "AND (CAST(:salary AS integer) IS NULL OR j.salary = :salary) " +
+//            "AND (CAST(:deadline AS timestamp) IS NULL OR j.deadline <= :deadline)")
+//    List<Job> findByMultipleFields(
+//            @Param("title") String title,
+//            @Param("location") String location,
+//            @Param("experience") Integer experience,
+//            @Param("jobType") String jobType,
+//            @Param("salary") Integer salary,
+//            @Param("deadline") LocalDateTime deadline);
+
     @Query("SELECT j FROM Job j " +
-            "WHERE (CAST(:title AS string) IS NULL OR j.title LIKE %:title%) " +
-            "AND (CAST(:location AS string) IS NULL OR j.location LIKE %:location%) " +
+            "WHERE (:title IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :title, '%'))) " +
+            "AND (:location IS NULL OR LOWER(j.location) LIKE LOWER(CONCAT('%', :location, '%'))) " +
             "AND (CAST(:experience AS integer) IS NULL OR j.experience <= :experience) " +
             "AND (CAST(:jobType AS string) IS NULL OR j.jobType LIKE %:jobType%) " +
             "AND (CAST(:salary AS integer) IS NULL OR j.salary = :salary) " +
@@ -54,6 +69,15 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
             @Param("jobType") String jobType,
             @Param("salary") Integer salary,
             @Param("deadline") LocalDateTime deadline);
+
+    @Query("SELECT j FROM Job j " +
+            "WHERE (:location IS NULL OR LOWER(j.location) LIKE LOWER(CONCAT('%', :location, '%'))) " +
+            "AND (:title IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :title, '%')))")
+    List<Job> findByLocationAndTitleIgnoreCase(
+            @Param("location") String location,
+            @Param("title") String title);
+
+
 
 //    @Query("SELECT j FROM Job j " +
 //            "WHERE (:title IS NULL OR CAST(j.title AS string) LIKE CONCAT('%', :title, '%')) " +
