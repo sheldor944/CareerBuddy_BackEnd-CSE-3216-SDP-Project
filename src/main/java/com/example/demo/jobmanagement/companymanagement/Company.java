@@ -54,7 +54,10 @@ public class Company  {
         this.location = companyRequest.getLocation();
     }
 
-    public Company(String name, String location, String phoneNumber, String email, String website, String registrationYear, List<Job> jobs, boolean isActive, LocalDateTime foundationYear, CompanySize size, String domain, String description) {
+
+
+    public Company(User user, String name, String location, String phoneNumber, String email, String website, String registrationYear, List<Job> jobs, boolean isActive, LocalDateTime foundationYear, CompanySize size, String domain, String description) {
+        this.user = user;
         this.name = name;
         this.location = location;
         this.phoneNumber = phoneNumber;

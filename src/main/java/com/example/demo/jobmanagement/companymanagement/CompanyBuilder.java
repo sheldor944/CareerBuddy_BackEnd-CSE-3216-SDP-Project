@@ -1,16 +1,17 @@
 package com.example.demo.jobmanagement.companymanagement;
 
 import com.example.demo.jobmanagement.job.Job;
+import com.example.demo.usermanagement.models.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.util.UUID;
 
 
 public class CompanyBuilder {
 
 
-
+    private User user;
     private String name;
     private String location;
     private String phoneNumber;
@@ -23,6 +24,12 @@ public class CompanyBuilder {
     private boolean isActive;
     private List<Job> jobs;
     private String registrationYear;
+
+
+    public CompanyBuilder user(User user) {
+        this.user = user;
+        return this;
+    }
 
     public CompanyBuilder name(String name) {
         this.name = name;
@@ -85,7 +92,7 @@ public class CompanyBuilder {
     }
 
     public Company build() {
-        return new Company(name, location, phoneNumber, email, website, registrationYear, jobs,isActive, foundationYear, size, domain, description);
+        return new Company(user,name, location, phoneNumber, email, website, registrationYear, jobs,isActive, foundationYear, size, domain, description);
     }
 
     public CompanyBuilder fromRequest(CompanyRequest companyRequest) {

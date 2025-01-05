@@ -1,5 +1,7 @@
 package com.example.demo.jobmanagement.companymanagement;
 
+import com.example.demo.usermanagement.models.User;
+import com.example.demo.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,33 +13,48 @@ import java.util.stream.Collectors;
 public class CompanyService {
     @Autowired
     CompanyRepository companyRepository;
-    public Company createCompany(CompanyRequest companyRequest){
+
+    @Autowired
+    UserRepository userRepository;
+
+    public CompanyDTO createCompany(CompanyRequest companyRequest){
 //        Company company = new Company(companyRequest);
+        User user = userRepository.findById(companyRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + companyRequest.getUserId()));
         Company company = new CompanyBuilder()
                 .fromRequest(companyRequest)
+                .user(user)
                 .build();
-
-        return companyRepository.save(company);
+        companyRepository.save(company);
+        return new CompanyDTO(user.getId(),company);
     }
 
     public List<CompanyDTO> getAllCompany() {
         List<Company> companies = companyRepository.findAll();
+
         return companies.stream()
                 .map(company -> new CompanyDTO(
-                        company.getName(),
-                        company.getLocation(),
-                        company.getPhoneNumber(),
-                        company.getEmail(),
-                        company.getDomain(),
-                        company.getWebsite(),
-                        company.getDescription(),
-                        company.getSize(),
-                        company.getFoundationYear(),
-                        company.getRegistrationYear(),
-                        company.isActive(),
-                        company.getId()
+                        company.getUser().getId(),
+                        company
                 ))
                 .collect(Collectors.toList());
+
+//        return companies.stream()
+//                .map(company -> new CompanyDTO(
+//                        company.getName(),
+//                        company.getLocation(),
+//                        company.getPhoneNumber(),
+//                        company.getEmail(),
+//                        company.getDomain(),
+//                        company.getWebsite(),
+//                        company.getDescription(),
+//                        company.getSize(),
+//                        company.getFoundationYear(),
+//                        company.getRegistrationYear(),
+//                        company.isActive(),
+//                        company.getId()
+//                ))
+//                .collect(Collectors.toList());
     }
 
 
@@ -73,5 +90,25 @@ public class CompanyService {
                 ))
                 .collect(Collectors.toList());
 
+    }
+
+    public List<CompanyDTO> getCompaniesByUserId(UUID userId) {
+        List<Company> companies = companyRepository.findByUserId(userId);
+        return companies.stream()
+                .map(company -> new CompanyDTO(
+                        company.getName(),
+                        company.getLocation(),
+                        company.getPhoneNumber(),
+                        company.getEmail(),
+                        company.getDomain(),
+                        company.getWebsite(),
+                        company.getDescription(),
+                        company.getSize(),
+                        company.getFoundationYear(),
+                        company.getRegistrationYear(),
+                        company.isActive(),
+                        company.getId()
+                ))
+                .collect(Collectors.toList());
     }
 }

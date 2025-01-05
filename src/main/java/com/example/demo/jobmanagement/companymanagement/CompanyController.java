@@ -14,7 +14,7 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
     @PostMapping
-    public Company createCompany(@RequestBody CompanyRequest companyRequest){
+    public CompanyDTO createCompany(@RequestBody CompanyRequest companyRequest){
         return companyService.createCompany(companyRequest);
     }
 
@@ -34,6 +34,11 @@ public class CompanyController {
             @RequestParam(required = false) String location
     ){
         return companyService.searchCompanies(name, domain, location);
+    }
+
+    @GetMapping("/allbyuser/{userId}")
+    public List<CompanyDTO> getCompaniesByUserId(@PathVariable UUID userId){
+        return companyService.getCompaniesByUserId(userId);
     }
 
 //    @GetMapping("/search")

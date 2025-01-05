@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Data
 public class CompanyDTO {
     private UUID id;
+    private UUID userId;
     private String companyName;
     private String location;
     private String phoneNumber;
@@ -45,6 +46,22 @@ public class CompanyDTO {
         this.registrationYear = registrationYear;
         this.isActive = isActive;
         this.id = id;
+    }
+
+    public CompanyDTO(UUID userId, Company company){
+        this.userId = userId;
+        this.companyName = company.getName();
+        this.location = company.getLocation();
+        this.phoneNumber = company.getPhoneNumber();
+        this.email = company.getEmail();
+        this.domain = company.getDomain();
+        this.website = company.getWebsite();
+        this.description = company.getDescription();
+        this.size = company.getSize();
+        this.foundationYear = company.getFoundationYear();
+        this.registrationYear = company.getRegistrationYear();
+        this.isActive = company.isActive();
+        this.id = company.getId();
     }
 
     public CompanyDTO(Company company){

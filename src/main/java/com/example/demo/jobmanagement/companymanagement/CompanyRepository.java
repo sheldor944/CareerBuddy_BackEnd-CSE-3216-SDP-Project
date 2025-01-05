@@ -22,4 +22,5 @@ public interface CompanyRepository extends JpaRepository<Company, UUID> {
                                        @Param("location") String location);
 
 
+    List<Company> findByUserId(UUID userId);
 }
