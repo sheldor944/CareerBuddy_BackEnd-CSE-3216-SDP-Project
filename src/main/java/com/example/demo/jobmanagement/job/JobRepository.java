@@ -100,4 +100,5 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     @Query("SELECT DISTINCT j FROM Job j JOIN j.skills s WHERE s IN :skills")
     List<Job> findJobsBySkills(@Param("skills") Set<Skill> skills);
 
+    List<Job> findByCompany_Id(UUID companyId);
 }

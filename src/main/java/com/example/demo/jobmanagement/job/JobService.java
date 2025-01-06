@@ -97,6 +97,15 @@ public class JobService {
                 )).collect(Collectors.toList());
     }
 
+    public List<JobDTO> getJobsByCompany(UUID companyId) {
+        List<Job> jobs = jobRepository.findByCompany_Id(companyId);
+        return jobs.stream()
+                .map(job -> new JobDTO(
+                        job,
+                        job.getCompany()
+                )).collect(Collectors.toList());
+    }
+
     public List<JobDTO> searchJobs(SearchCriteria criteria) {
         String title = criteria.getJobTitle() != null ? criteria.getJobTitle() : null;
         String location = criteria.getLocation() != null ? criteria.getLocation() : null;

@@ -30,6 +30,11 @@ public class JobController {
         return  jobService.getJobByID(id);
     }
 
+    @GetMapping("/company/{companyId}")
+    public List<JobDTO> getJobsByCompany(@PathVariable UUID companyId){
+        return jobService.getJobsByCompany(companyId);
+    }
+
     @GetMapping("/search")
     public List<JobDTO> searchJobs(@ModelAttribute SearchCriteria searchCriteria) {
         return jobService.searchJobs(searchCriteria);
