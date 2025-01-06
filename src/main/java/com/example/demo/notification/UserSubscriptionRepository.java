@@ -13,4 +13,6 @@ public interface UserSubscriptionRepository extends JpaRepository<UserSubscripti
     Optional<UserSubscription> findByUserAndSubscribedCompany(User user, Company company);
 
     List<UserSubscription> findBySubscribedCompany_Id(UUID companyID);
+
+    List<UserSubscription> findByUser_Id(UUID id);
 }
