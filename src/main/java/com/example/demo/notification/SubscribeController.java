@@ -35,4 +35,9 @@ public class SubscribeController {
     public List<UserSubscriptionDTO> getSubscriptionsByCompanyId(@PathVariable UUID id) {
         return subscriptionService.getSubscriptionsByCompanyId(id);
     }
+
+    @GetMapping("/isSubscribed")
+    public IsSubscribedDTO isSubscribed(SubscribeRequest subscribeRequest) {
+        return subscriptionService.isSubscribed(subscribeRequest);
+    }
 }

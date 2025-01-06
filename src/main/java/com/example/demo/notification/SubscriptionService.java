@@ -102,4 +102,13 @@ public class SubscriptionService {
                 .collect(Collectors.toList());
 
     }
+
+    public IsSubscribedDTO isSubscribed(SubscribeRequest subscribeRequest) {
+        Company company = companyRepository.findById(subscribeRequest.getCompanyId())
+                .orElseThrow(() -> new RuntimeException("Company not found with the id : " + subscribeRequest.getCompanyId()));
+        User user = userRepository.findById(subscribeRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with the id : " + subscribeRequest.getUserId()));
+        boolean res =  userSubscriptionRepository.findByUserAndSubscribedCompany(user, company).isPresent();
+        return new IsSubscribedDTO(res);
+    }
 }
