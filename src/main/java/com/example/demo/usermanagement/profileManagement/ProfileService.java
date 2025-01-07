@@ -180,6 +180,9 @@ public class ProfileService {
     public List<JobDTO> getRecommendation(UUID id) {
         Set<Skill> skills = profileRepository.findSkillsByProfileId(id);
         List<Job> jobs = jobRepository.findJobsBySkills(skills);
+        for(Skill s:skills){
+            System.out.println(s.getName());
+        }
 
         List<JobDTO> result = sortJobsBySkillMatch(skills, jobs);
         return result;
