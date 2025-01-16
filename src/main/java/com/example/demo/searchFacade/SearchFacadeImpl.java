@@ -32,10 +32,12 @@ public class SearchFacadeImpl implements SearchFacade {
 
         // Delegate to CompanyService if company-related criteria are present
         if (isCompanySearchCriteria(criteria)) {
+            System.out.println(criteria.getLocation());
             companies = companyService.searchCompanies(
                     criteria.getCompanyName(),
-                    criteria.getLocation(),
-                    criteria.getDomain()
+
+                    criteria.getDomain(),
+                    criteria.getLocation()
             );
         }
 

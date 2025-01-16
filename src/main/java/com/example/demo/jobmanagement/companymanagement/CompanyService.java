@@ -71,6 +71,7 @@ public class CompanyService {
     }
 
     public List<CompanyDTO> searchCompanies(String name, String domain, String location){
+        System.out.println(location);
 
         List<Company> companies =  companyRepository.findByMultipleFields(name, domain, location);
         return companies.stream()
