@@ -1,6 +1,8 @@
 package com.example.demo.usermanagement.profileManagement;
 
 import com.example.demo.usermanagement.models.User;
+import com.example.demo.usermanagement.profileManagement.education.Education;
+import com.example.demo.usermanagement.profileManagement.experience.Experience;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -38,6 +40,21 @@ public class Profile {
     )
     private Set<Skill> skills;
 
+    @ManyToMany
+    @JoinTable(
+            name = "profile_experiences", // Intermediary table
+            joinColumns = @JoinColumn(name = "profile_id"), // FK to Profile
+            inverseJoinColumns = @JoinColumn(name = "experience_id") // FK to Experience
+    )
+    private Set<Experience> experiences;
+
+    @ManyToMany
+    @JoinTable(
+            name = "profile_educations", // Intermediary table
+            joinColumns = @JoinColumn(name = "profile_id"), // FK to Profile
+            inverseJoinColumns = @JoinColumn(name = "education_id") // FK to Education
+    )
+    private Set<Education> educations;
 
     public Profile(ProfileRequest profileRequest) {
         this.name = profileRequest.getName();

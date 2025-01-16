@@ -1,5 +1,7 @@
 package com.example.demo.usermanagement.profileManagement;
 
+import com.example.demo.usermanagement.profileManagement.education.EducationRequest;
+import com.example.demo.usermanagement.profileManagement.experience.ExperienceRequest;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
 import com.example.demo.usermanagement.profileManagement.skill.SkillRequest;
@@ -23,5 +25,7 @@ public class ProfileRequest {
     private Set<SkillDTO> readySkills;
 
     private Set<SkillRequest> newSkills;
+    private Set<ExperienceRequest> experiences;
+    private Set<EducationRequest> educations;
 
 }
