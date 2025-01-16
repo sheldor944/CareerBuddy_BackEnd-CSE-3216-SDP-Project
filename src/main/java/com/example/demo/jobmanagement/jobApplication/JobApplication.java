@@ -11,7 +11,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "job_applications")
+@Table(name = "job_applications",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"job_id", "priorityIndex"}),
+                @UniqueConstraint(columnNames = {"user_id", "job_id"})
+        }
+)
 @Data
 @NoArgsConstructor
 public class JobApplication {
@@ -32,14 +37,17 @@ public class JobApplication {
     private LocalDateTime appliedAt;
     private LocalDateTime updatedAt;
 
+    private double priorityIndex = 0;
+
     @OneToOne(mappedBy = "jobApplication", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Meeting meeting;
 
-    public JobApplication(Job job, User user, String status, LocalDateTime appliedAt, LocalDateTime updatedAt) {
+    public JobApplication(Job job, User user, String status, LocalDateTime appliedAt, LocalDateTime updatedAt, double priorityIndex) {
         this.job = job;
         this.user = user;
         this.status = status;
         this.appliedAt = appliedAt;
         this.updatedAt = updatedAt;
+        this.priorityIndex = priorityIndex;
     }
 }

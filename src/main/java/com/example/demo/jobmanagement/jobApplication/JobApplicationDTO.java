@@ -12,6 +12,7 @@ public class JobApplicationDTO {
     private String status;
     private String appliedAt;
     private String updatedAt;
+    private double PriorityIndex;
 
     public JobApplicationDTO(JobApplication jobApplication) {
         this.id = jobApplication.getId();
@@ -20,6 +21,7 @@ public class JobApplicationDTO {
         this.status = jobApplication.getStatus();
         this.appliedAt = jobApplication.getAppliedAt().toString();
         this.updatedAt = jobApplication.getUpdatedAt().toString();
+        this.PriorityIndex = jobApplication.getPriorityIndex();
     }
     public JobApplicationDTO(String status, String appliedAt, String updatedAt) {
         this.status = status;

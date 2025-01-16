@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class JobApplicationService {
@@ -27,16 +28,57 @@ public class JobApplicationService {
 
 
     public JobApplicationDTO applyForJob(UUID jobId, UUID userId) {
+        AtomicBoolean flag = new AtomicBoolean(false);
+        jobApplicationRepository.findByUserIdAndJobId(userId, jobId).ifPresent(jobApplication -> {
+            System.out.println("User has already applied for this job");
+            flag.set(true);
+             // Exit early or perform additional logic
+        });
+        if(flag.get()){
+            return null;
+        }
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found with the id : " + jobId));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with the id : " + userId));
+
         LocalDateTime currentDateTime = LocalDateTime.now();
+        List<JobApplication> jobApplications =  jobApplicationRepository.findByJobIdOrderByPriorityIndexAsc(jobId);
+        if(jobApplications.isEmpty()){
+            JobApplication jobApplication = new JobApplication(job, user, "Pending", currentDateTime, currentDateTime, 1000000);    // Create a new JobApplication
+            jobApplicationRepository.save(jobApplication);
+            return new JobApplicationDTO(jobApplication);
+        }
+        double priorityIndex = jobApplications.get(jobApplications.size() - 1).getPriorityIndex() + 1000000;
 
 
-        JobApplication jobApplication = new JobApplication(job, user, "Pending", currentDateTime, currentDateTime);    // Create a new JobApplication
+        JobApplication jobApplication = new JobApplication(job, user, "Pending", currentDateTime, currentDateTime, priorityIndex);    // Create a new JobApplication
         jobApplicationRepository.save(jobApplication);
         return new JobApplicationDTO(jobApplication);
+    }
+
+    public JobApplicationDTO updatePriorityIndex(UUID jobApplicationId, int position){
+        JobApplication jobApplication = jobApplicationRepository.findById(jobApplicationId)
+                .orElseThrow(() -> new RuntimeException("Job Application not found with the id : " + jobApplicationId));
+        List<JobApplication> jobApplications = jobApplicationRepository.findByJobIdOrderByPriorityIndexAsc(jobApplication.getJob().getId());
+        if ( position > jobApplications.size() ){
+            jobApplication.setPriorityIndex(jobApplications.get(jobApplications.size() - 1).getPriorityIndex() + 1000000);
+            jobApplicationRepository.save(jobApplication);
+            return new JobApplicationDTO(jobApplication);
+        }
+        else if( position == 1){
+            jobApplication.setPriorityIndex(jobApplications.get(0).getPriorityIndex() / 2);
+            jobApplicationRepository.save(jobApplication);
+
+            return new JobApplicationDTO(jobApplication);
+        }
+        else if ( position >1){
+            jobApplication.setPriorityIndex((jobApplications.get(position - 2).getPriorityIndex() + jobApplications.get(position - 1).getPriorityIndex()) / 2);
+            jobApplicationRepository.save(jobApplication);
+
+            return new JobApplicationDTO(jobApplication);
+        }
+        return  null;
     }
 
     public JobApplicationDTO updateJobApplication(UUID jobApplicationId, JobApplicationRequest jobApplicationRequest) {
@@ -54,7 +96,7 @@ public class JobApplicationService {
     }
 
     public List<JobApplicationDTO> getJobApplicationsByJobId(UUID jobId) {
-        List<JobApplication> jobApplications = jobApplicationRepository.findByJobId(jobId);
+        List<JobApplication> jobApplications = jobApplicationRepository.findByJobIdOrderByPriorityIndexAsc(jobId);
         return jobApplications.stream().map(JobApplicationDTO::new).toList();
     }
 

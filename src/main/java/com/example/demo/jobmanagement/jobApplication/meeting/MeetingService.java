@@ -41,7 +41,9 @@ public class MeetingService {
         JobApplication jobApplication = jobApplicationRepository.findById(meetingRequest.getJobApplicationId())
                 .orElseThrow(() -> new RuntimeException("Job Application not found with the id : " + meetingRequest.getJobApplicationId()));
 
-        if(jobApplication.getUser().getId() != user.getId()) {
+        Company company = jobApplication.getJob().getCompany();
+        // Fixed this
+        if(jobApplication.getUser().getId() != company.getUser().getId()) {
             throw new RuntimeException("User is not authorized to create a meeting for this job application");
         }
         List<Meeting> meetings = meetingRepository.findByUserId(user.getId());

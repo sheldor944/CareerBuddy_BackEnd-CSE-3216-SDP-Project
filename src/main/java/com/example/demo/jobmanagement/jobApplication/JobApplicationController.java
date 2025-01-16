@@ -45,6 +45,11 @@ public class JobApplicationController {
         return jobApplicationService.applyForJob(jobId, userId);
     }
 
+    @PutMapping("/updatePriorityIndex/{jobApplicationId}")
+    public JobApplicationDTO updatePriorityIndex(@PathVariable UUID jobApplicationId, int position){
+        return jobApplicationService.updatePriorityIndex(jobApplicationId, position);
+    }
+
     @GetMapping("/filter")
     public List<JobApplicationDTO> getJobApplicationsByFilter(
             @RequestParam(required = false) String status,

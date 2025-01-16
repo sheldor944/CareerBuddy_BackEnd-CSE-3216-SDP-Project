@@ -6,10 +6,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface JobApplicationRepository extends JpaRepository<JobApplication, UUID> {
     List<JobApplication> findByJobId(UUID jobId);
+    List<JobApplication> findByJobIdOrderByPriorityIndexAsc(UUID jobId);
 
     List<JobApplication> findByUserId(UUID userId);
 
@@ -30,4 +32,5 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
             @Param("isGreaterThan") Boolean isGreaterThan // Use Boolean to allow null
     );
 
+    Optional<Object> findByUserIdAndJobId(UUID userId, UUID jobId);
 }
