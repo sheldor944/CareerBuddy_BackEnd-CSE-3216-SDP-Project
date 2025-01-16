@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -27,5 +28,9 @@ public class EducationDTO {
         this.description = education.getDescription();
         this.startDate = education.getStartDate();
         this.endDate = education.getEndDate();
+    }
+
+    public static Set<EducationDTO> educationSetToEducationDTOSet(Set<Education> educations) {
+        return educations.stream().map(EducationDTO::new).collect(java.util.stream.Collectors.toSet());
     }
 }

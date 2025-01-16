@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -39,5 +40,9 @@ public class ExperienceDTO {
         this.endDate = experience.getEndDate();
         this.currentlyWorking = experience.isCurrentlyWorking();
         this.workSummary = experience.getWorkSummary();
+    }
+
+    public static Set<ExperienceDTO> experienceSetToExperienceDTOSet(Set<Experience> experiences) {
+        return experiences.stream().map(ExperienceDTO::new).collect(java.util.stream.Collectors.toSet());
     }
 }

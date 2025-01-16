@@ -2,6 +2,7 @@ package com.example.demo.usermanagement.profileManagement.education;
 
 
 import com.example.demo.usermanagement.profileManagement.Profile;
+import com.example.demo.usermanagement.profileManagement.resume.Resume;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,9 @@ public class Education {
 
     @ManyToMany(mappedBy = "educations")
     private Set<Profile> profiles;
+
+    @ManyToMany(mappedBy = "educations")
+    private Set<Resume> resumes;
 
     public Education(EducationRequest educationRequest) {
         this.universityName = educationRequest.getUniversityName();

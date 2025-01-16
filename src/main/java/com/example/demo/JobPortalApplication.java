@@ -6,6 +6,9 @@ import com.example.demo.jobmanagement.jobApplication.JobApplicationRepository;
 import com.example.demo.notification.UserSubscriptionRepository;
 import com.example.demo.rolemanagement.RoleRepository;
 import com.example.demo.usermanagement.profileManagement.ProfileRepository;
+import com.example.demo.usermanagement.profileManagement.education.EducationRepository;
+import com.example.demo.usermanagement.profileManagement.experience.ExperienceRepository;
+import com.example.demo.usermanagement.profileManagement.resume.ResumeRepository;
 import com.example.demo.usermanagement.profileManagement.skill.SkillRepository;
 import com.example.demo.usermanagement.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 		ProfileRepository.class,
 		JobApplicationRepository.class,
 		SkillRepository.class,
-		UserSubscriptionRepository.class
+		UserSubscriptionRepository.class,
+		ResumeRepository.class,
+		EducationRepository.class,
+		ExperienceRepository.class
 
 })
 @RestController

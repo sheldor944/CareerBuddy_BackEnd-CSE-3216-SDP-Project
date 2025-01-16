@@ -1,14 +1,17 @@
 package com.example.demo.usermanagement.profileManagement;
 
+import com.example.demo.jobmanagement.job.Job;
 import com.example.demo.usermanagement.models.User;
 import com.example.demo.usermanagement.profileManagement.education.Education;
 import com.example.demo.usermanagement.profileManagement.experience.Experience;
+import com.example.demo.usermanagement.profileManagement.resume.Resume;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -55,6 +58,9 @@ public class Profile {
             inverseJoinColumns = @JoinColumn(name = "education_id") // FK to Education
     )
     private Set<Education> educations;
+
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resume> resumes;
 
     public Profile(ProfileRequest profileRequest) {
         this.name = profileRequest.getName();
