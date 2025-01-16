@@ -36,4 +36,9 @@ public class ResumeController {
         return resumeService.updateResume(resumeRequest, id);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void deleteResume(@PathVariable UUID id){
+        resumeService.deleteResume(id);
+    }
+
 }
