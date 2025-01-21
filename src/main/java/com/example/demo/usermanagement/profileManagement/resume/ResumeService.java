@@ -8,6 +8,7 @@ import com.example.demo.usermanagement.profileManagement.education.EducationRepo
 import com.example.demo.usermanagement.profileManagement.experience.Experience;
 import com.example.demo.usermanagement.profileManagement.experience.ExperienceDTO;
 import com.example.demo.usermanagement.profileManagement.experience.ExperienceRepository;
+
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
 import com.example.demo.usermanagement.profileManagement.skill.SkillRepository;
@@ -34,11 +35,15 @@ public class ResumeService {
     SkillRepository skillRepository;
 
 
+
+
+
+
     public ResumeDTO addResume(ResumeRequest resumeRequest, UUID profileId) {
         Profile profile = profileRepository.findById(profileId).orElseThrow(() -> new RuntimeException("Profile not found"));
 
-        Resume resume = new Resume(resumeRequest);
-        resume.setProfile(profile);
+
+
         Set<Education> educations = new HashSet<>();
         Set<Experience> experiences = new HashSet<>();
         Set<Skill> skills = new HashSet<>();
@@ -54,9 +59,14 @@ public class ResumeService {
             Skill skill = skillRepository.getReferenceById(skillID);
             skills.add(skill);
         }
-        resume.setEducations(educations);
-        resume.setExperiences(experiences);
-        resume.setSkills(skills);
+        System.out.println("here1");
+        Resume resume = ResumeFactory.createResume(resumeRequest, profile, educations, experiences, skills);
+        System.out.println("here");
+//        Resume resume = new Resume(resumeRequest);
+//        resume.setProfile(profile);
+//        resume.setEducations(educations);
+//        resume.setExperiences(experiences);
+//        resume.setSkills(skills);
         resumeRepository.save(resume);
         return new ResumeDTO(resume);
     }

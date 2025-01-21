@@ -14,6 +14,7 @@ import java.util.UUID;
 @Getter
 public class ResumeRequest {
 
+
     private String resumeName;
     private String jobTitle;
     private String summary;
