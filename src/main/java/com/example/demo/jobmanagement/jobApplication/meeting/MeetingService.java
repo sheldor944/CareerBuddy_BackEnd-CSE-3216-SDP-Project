@@ -8,6 +8,8 @@ import com.example.demo.jobmanagement.job.JobRepository;
 import com.example.demo.jobmanagement.jobApplication.JobApplication;
 import com.example.demo.jobmanagement.jobApplication.JobApplicationRepository;
 import com.example.demo.jobmanagement.jobApplication.JobApplicationRequest;
+import com.example.demo.notification.EmailSender;
+import com.example.demo.notification.SimpleMailMessage;
 import com.example.demo.usermanagement.models.User;
 import com.example.demo.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class MeetingService {
 
     @Autowired
     JobRepository jobRepository;
+    @Autowired
+    EmailSender emailSender;
 
     @Autowired
     JobApplicationRepository jobApplicationRepository;
@@ -76,6 +80,12 @@ public class MeetingService {
             throw new RuntimeException("User already has a meeting scheduled at this time");
         }
         Meeting meeting = new Meeting(meetingRequest, user, jobApplication);
+
+        String email =user.getEmail();
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage(email, "Meeting Scheduled  for   " + jobApplication.getJob().getTitle()  + " at "
+                + meeting.getStartTime() + " - " + meeting.getEndTime(), " Meeting Scheduled for   " + jobApplication.getJob().getCompany().getName());
+        System.out.println("Email sent to " + email);
+        emailSender.sendEmail(simpleMailMessage);
         meetingRepository.save(meeting);
         return new MeetingDTO(meeting);
     }
