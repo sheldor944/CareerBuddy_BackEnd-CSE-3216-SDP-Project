@@ -66,6 +66,16 @@ public class JobController {
 //        return jobService.searchJobs(title, description );
 //    }
 
-
-
+    @PostMapping("/saveJob")
+    public void saveJob(@RequestBody SavedJobsRequest savedJobsRequest){
+        jobService.saveJob(savedJobsRequest);
+    }
+    @GetMapping("/allSavedJobs/{profileId}")
+    public List<JobDTO> getAllSavedJobs(@PathVariable UUID profileId){
+        return jobService.getAllSavedJobs(profileId);
+    }
+    @DeleteMapping("/deleteSavedJob")
+    public void deleteSavedJob(@RequestBody SavedJobsRequest savedJobsRequest){
+        jobService.deleteSavedJob(savedJobsRequest);
+    }
 }

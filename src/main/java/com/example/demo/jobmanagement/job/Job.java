@@ -48,6 +48,9 @@
         )
         private Set<Skill> skills;
 
+        @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<SavedJobs> savedJobs;
+
 
         public Job(Company company, JobRequest jobRequest){
             this.company = company;

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.jobmanagement.job.JobRepository;
 import com.example.demo.jobmanagement.companymanagement.CompanyRepository;
+import com.example.demo.jobmanagement.job.SavedJobsRepository;
 import com.example.demo.jobmanagement.jobApplication.JobApplicationRepository;
 import com.example.demo.notification.UserSubscriptionRepository;
 import com.example.demo.rolemanagement.RoleRepository;
@@ -29,7 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 		UserSubscriptionRepository.class,
 		ResumeRepository.class,
 		EducationRepository.class,
-		ExperienceRepository.class
+		ExperienceRepository.class,
+		SavedJobsRepository.class
 
 })
 @RestController

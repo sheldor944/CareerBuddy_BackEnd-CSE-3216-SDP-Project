@@ -11,6 +11,8 @@ import com.example.demo.notification.UserSubscriptionRepository;
 import com.example.demo.searchFacade.SearchCriteria;
 import com.example.demo.searchFacade.SearchFacade;
 import com.example.demo.usermanagement.models.User;
+import com.example.demo.usermanagement.profileManagement.Profile;
+import com.example.demo.usermanagement.profileManagement.ProfileRepository;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
 import com.example.demo.usermanagement.profileManagement.skill.SkillRepository;
@@ -41,7 +43,13 @@ public class JobService {
     EmailSender emailSender;
 
     @Autowired
+    ProfileRepository profileRepository;
+
+    @Autowired
     UserSubscriptionRepository userSubscriptionRepository;
+
+    @Autowired
+    SavedJobsRepository savedJobsRepository;
 
     public void notifySubscriber(UUID companyID, Job job){
         List<UserSubscription> userSubscriptionList = userSubscriptionRepository.findBySubscribedCompany_Id(companyID);
@@ -138,6 +146,53 @@ public class JobService {
                 .stream()
                 .map(JobDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    public void saveJob(SavedJobsRequest savedJobsRequest) {
+        UUID profileId = savedJobsRequest.getProfileId();
+        UUID jobId = savedJobsRequest.getJobId();
+
+        Profile profile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new RuntimeException("User not found with the id : " + profileId));
+
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found with the id : " + jobId));
+
+
+        SavedJobs savedJobs = new SavedJobs(job, profile);
+        if( profile.getSavedJobs() == null){
+            profile.setSavedJobs(new HashSet<>());
+        }
+        Set<SavedJobs> savedJobsList = profile.getSavedJobs();
+        savedJobsList.add(savedJobs);
+        profile.setSavedJobs(savedJobsList);
+        profileRepository.save(profile);
+
+    }
+
+    public List<JobDTO> getAllSavedJobs(UUID profileId) {
+        Profile profile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new RuntimeException("User not found with the id : " + profileId));
+        Set<SavedJobs> savedJobs = profile.getSavedJobs();
+        return savedJobs.stream()
+                .map(savedJob -> new JobDTO(
+                        savedJob.getJob(),
+                        savedJob.getJob().getCompany()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public void deleteSavedJob(SavedJobsRequest savedJobsRequest) {
+        Profile profile = profileRepository.findById(savedJobsRequest.getProfileId())
+                .orElseThrow(() -> new RuntimeException("User not found with the id : " + savedJobsRequest.getProfileId()));
+        Job job = jobRepository.findById(savedJobsRequest.getJobId())
+                .orElseThrow(() -> new RuntimeException("Job not found with the id : " + savedJobsRequest.getJobId()));
+        SavedJobs savedJobs = savedJobsRepository.findByProfileIdAndJobId(profile.getId(), job.getId())
+                .orElseThrow(() -> new RuntimeException("Saved Job not found"));
+        Set<SavedJobs> savedJobsList = profile.getSavedJobs();
+        savedJobsList.remove(savedJobs);
+        profile.setSavedJobs(savedJobsList);
+        profileRepository.save(profile);
     }
 
 //    public List<JobDTO> searchJobs(SearchCriteria criteria) {

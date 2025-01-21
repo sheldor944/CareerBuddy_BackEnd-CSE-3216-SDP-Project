@@ -1,6 +1,7 @@
 package com.example.demo.usermanagement.profileManagement;
 
 import com.example.demo.jobmanagement.job.Job;
+import com.example.demo.jobmanagement.job.SavedJobs;
 import com.example.demo.usermanagement.models.User;
 import com.example.demo.usermanagement.profileManagement.education.Education;
 import com.example.demo.usermanagement.profileManagement.experience.Experience;
@@ -8,16 +9,18 @@ import com.example.demo.usermanagement.profileManagement.resume.Resume;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "profiles")
-@Data
+@Getter
 @Setter
 @NoArgsConstructor
 public class Profile {
@@ -61,6 +64,10 @@ public class Profile {
 
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resume> resumes;
+
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SavedJobs> savedJobs = new HashSet<>();
+
 
     public Profile(ProfileRequest profileRequest) {
         this.name = profileRequest.getName();
