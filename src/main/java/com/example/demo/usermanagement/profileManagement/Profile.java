@@ -5,6 +5,7 @@ import com.example.demo.jobmanagement.job.SavedJobs;
 import com.example.demo.usermanagement.models.User;
 import com.example.demo.usermanagement.profileManagement.education.Education;
 import com.example.demo.usermanagement.profileManagement.experience.Experience;
+import com.example.demo.usermanagement.profileManagement.research.Research;
 import com.example.demo.usermanagement.profileManagement.resume.Resume;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import jakarta.persistence.*;
@@ -61,6 +62,14 @@ public class Profile {
             inverseJoinColumns = @JoinColumn(name = "education_id") // FK to Education
     )
     private Set<Education> educations;
+
+    @ManyToMany
+    @JoinTable(
+            name = "profile_researches", // Intermediary table
+            joinColumns = @JoinColumn(name = "profile_id"), // FK to Profile
+            inverseJoinColumns = @JoinColumn(name = "research_id") // FK to Education
+    )
+    private Set<Research> researches;
 
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resume> resumes;

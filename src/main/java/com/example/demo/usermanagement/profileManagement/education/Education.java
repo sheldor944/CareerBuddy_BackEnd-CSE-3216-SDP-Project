@@ -2,6 +2,7 @@ package com.example.demo.usermanagement.profileManagement.education;
 
 
 import com.example.demo.usermanagement.profileManagement.Profile;
+import com.example.demo.usermanagement.profileManagement.resume.ProfessionalResume;
 import com.example.demo.usermanagement.profileManagement.resume.Resume;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,6 +37,9 @@ public class Education {
 
     @ManyToMany(mappedBy = "educations")
     private Set<Resume> resumes;
+
+    @ManyToMany(mappedBy = "educations")
+    private Set<ProfessionalResume> professionalResumes;
 
     public Education(EducationRequest educationRequest) {
         this.universityName = educationRequest.getUniversityName();

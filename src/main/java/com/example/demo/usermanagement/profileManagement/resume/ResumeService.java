@@ -13,6 +13,7 @@ import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
 import com.example.demo.usermanagement.profileManagement.skill.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -33,7 +34,8 @@ public class ResumeService {
     ExperienceRepository experienceRepository;
     @Autowired
     SkillRepository skillRepository;
-
+    @Autowired
+    ResumeRepositoryFactory resumeRepositoryFactory;
 
 
 
@@ -60,14 +62,16 @@ public class ResumeService {
             skills.add(skill);
         }
         System.out.println("here1");
-        Resume resume = ResumeFactory.createResume(resumeRequest, profile, educations, experiences, skills);
+        Object resume = ResumeFactory.createResume(resumeRequest, profile, educations, experiences, skills);
         System.out.println("here");
 //        Resume resume = new Resume(resumeRequest);
 //        resume.setProfile(profile);
 //        resume.setEducations(educations);
 //        resume.setExperiences(experiences);
 //        resume.setSkills(skills);
-        resumeRepository.save(resume);
+
+        JpaRepository  repo = resumeRepositoryFactory.createRepository(resumeRequest.getResumeType());
+        repo.save(resume);
         return new ResumeDTO(resume);
     }
 

@@ -1,6 +1,7 @@
 package com.example.demo.usermanagement.profileManagement.experience;
 
 import com.example.demo.usermanagement.profileManagement.Profile;
+import com.example.demo.usermanagement.profileManagement.resume.ProfessionalResume;
 import com.example.demo.usermanagement.profileManagement.resume.Resume;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,10 @@ public class Experience {
 
     @ManyToMany(mappedBy = "experiences")
     private Set<Resume> resumes;
+
+    @ManyToMany(mappedBy = "experiences")
+    private Set<ProfessionalResume> professionalResumes;
+
 
     public Experience(ExperienceRequest experienceRequest) {
         this.title = experienceRequest.getTitle();

@@ -10,6 +10,9 @@ import com.example.demo.usermanagement.profileManagement.education.EducationRequ
 import com.example.demo.usermanagement.profileManagement.experience.Experience;
 import com.example.demo.usermanagement.profileManagement.experience.ExperienceRepository;
 import com.example.demo.usermanagement.profileManagement.experience.ExperienceRequest;
+import com.example.demo.usermanagement.profileManagement.research.Research;
+import com.example.demo.usermanagement.profileManagement.research.ResearchDTO;
+import com.example.demo.usermanagement.profileManagement.research.ResearchRequest;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
 import com.example.demo.usermanagement.profileManagement.experience.ExperienceDTO;
@@ -42,6 +45,7 @@ public class ProfileService {
 
     @Autowired
     EducationRepository educationRepository;
+
 
     public ProfileDTO createProfile(UUID user_id, ProfileRequest profileRequest) {
 
@@ -86,6 +90,12 @@ public class ProfileService {
             educationRepository.save(education);
         }
 
+        Set<Research> researches = new HashSet<>();
+        for(ResearchRequest researchRequest : profileRequest.getResearches()){
+            Research research = new Research(researchRequest);
+            researches.add(research);
+        }
+
         // Combine ready skills (existing) and new skills
         Set<Skill> allSkills = new HashSet<>(readySkills);
         allSkills.addAll(newSkills);
@@ -96,6 +106,7 @@ public class ProfileService {
         profile.setSkills(allSkills);
         profile.setExperiences(experiences);
         profile.setEducations(educations);
+        profile.setResearches(researches);
         profile = profileRepository.save(profile);
 
         // Map to DTO and return
@@ -108,7 +119,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
         return profileDTO;
 //        return null;
@@ -128,7 +140,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         ) ;
     }
 
@@ -195,7 +208,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
         return profileDTO;
     }
@@ -272,7 +286,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
     }
 
@@ -294,7 +309,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
     }
 
@@ -325,7 +341,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
     }
 
@@ -346,7 +363,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
     }
 
@@ -370,7 +388,8 @@ public class ProfileService {
                     profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                     profile.getAddress(),
                     profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                    profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                    profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                    profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
             );
         }
         Skill skill = new Skill(skillRequest);
@@ -388,7 +407,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
     }
 
@@ -408,7 +428,8 @@ public class ProfileService {
                 profile.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet()),
                 profile.getAddress(),
                 profile.getExperiences().stream().map(ExperienceDTO::new).collect(Collectors.toSet()),
-                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet())
+                profile.getEducations().stream().map(EducationDTO::new).collect(Collectors.toSet()),
+                profile.getResearches().stream().map(ResearchDTO::new).collect(Collectors.toSet())
         );
     }
 }

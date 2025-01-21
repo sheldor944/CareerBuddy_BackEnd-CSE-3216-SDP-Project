@@ -4,6 +4,7 @@ import com.example.demo.usermanagement.UserDTO;
 import com.example.demo.usermanagement.profileManagement.education.Education;
 import com.example.demo.usermanagement.profileManagement.education.EducationDTO;
 import com.example.demo.usermanagement.profileManagement.experience.ExperienceDTO;
+import com.example.demo.usermanagement.profileManagement.research.ResearchDTO;
 import com.example.demo.usermanagement.profileManagement.skill.Skill;
 import com.example.demo.usermanagement.profileManagement.skill.SkillDTO;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class ProfileDTO {
     private Set<SkillDTO> skillSet;
     private Set<ExperienceDTO> experienceSet;
     private Set<EducationDTO> educationSet;
+    private Set<ResearchDTO> researchSet;
     private UserDTO userDTO ;
 
     public ProfileDTO(UUID id,
@@ -34,7 +36,8 @@ public class ProfileDTO {
                       Set<SkillDTO> skillSet,
                       String address,
                       Set<ExperienceDTO> experienceSet,
-                      Set<EducationDTO> educationSet) {
+                      Set<EducationDTO> educationSet,
+                      Set<ResearchDTO> researchSet) {
         this.id = id;
         this.name = name;
         this.bio = bio;
@@ -44,5 +47,6 @@ public class ProfileDTO {
         this.address = address;
         this.experienceSet = experienceSet;
         this.educationSet = educationSet;
+        this.researchSet = researchSet;
     }
 }

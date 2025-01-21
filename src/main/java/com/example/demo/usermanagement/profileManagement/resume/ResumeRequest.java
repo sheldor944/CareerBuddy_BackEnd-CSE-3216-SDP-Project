@@ -14,7 +14,7 @@ import java.util.UUID;
 @Getter
 public class ResumeRequest {
 
-
+    private String resumeType;
     private String resumeName;
     private String jobTitle;
     private String summary;
@@ -28,5 +28,6 @@ public class ResumeRequest {
     private Set<UUID> educations;
     private Set<UUID> experiences;
     private Set<UUID> skills;
+    private Set<UUID> researches;
 
 }

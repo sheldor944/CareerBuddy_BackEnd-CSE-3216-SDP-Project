@@ -9,6 +9,7 @@ import com.example.demo.rolemanagement.RoleRepository;
 import com.example.demo.usermanagement.profileManagement.ProfileRepository;
 import com.example.demo.usermanagement.profileManagement.education.EducationRepository;
 import com.example.demo.usermanagement.profileManagement.experience.ExperienceRepository;
+import com.example.demo.usermanagement.profileManagement.research.ResearchRepository;
 import com.example.demo.usermanagement.profileManagement.resume.ResumeRepository;
 import com.example.demo.usermanagement.profileManagement.skill.SkillRepository;
 import com.example.demo.usermanagement.repository.UserRepository;
@@ -31,7 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 		ResumeRepository.class,
 		EducationRepository.class,
 		ExperienceRepository.class,
-		SavedJobsRepository.class
+		SavedJobsRepository.class,
+		ResearchRepository.class
 
 })
 @RestController
