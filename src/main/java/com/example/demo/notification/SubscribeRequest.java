@@ -10,4 +10,5 @@ import java.util.UUID;
 public class SubscribeRequest {
     private UUID userId;
     private UUID companyId;
+
 }
