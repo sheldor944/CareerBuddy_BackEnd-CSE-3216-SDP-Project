@@ -25,6 +25,7 @@ public class Resume {
 
     private String resumeName;
     private String jobTitle;
+    @Column(columnDefinition = "TEXT")
     private String summary;
     private String themeColor;
 

@@ -19,7 +19,7 @@ public class EmailSender {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
             // Set email details from the SimpleMailMessage
-            helper.setFrom("gitgrub.order@gmail.com");
+            helper.setFrom("careerbuddy.73@gmail.com");
             helper.setTo(simpleMailMessage.getEmail());
             helper.setSubject(simpleMailMessage.getSubject());
 
@@ -37,7 +37,7 @@ public class EmailSender {
             mailSender.send(mimeMessage);
 
             // Optional: Print sender and receiver emails
-            System.out.println("From: gitgrub.order@gmail.com, To: " + simpleMailMessage.getEmail());
+            System.out.println("From: careerbuddy.73@gmail.com, To: " + simpleMailMessage.getEmail());
         } catch (MessagingException e) {
             // You might want to use a proper logging mechanism instead of printing
             e.printStackTrace();
