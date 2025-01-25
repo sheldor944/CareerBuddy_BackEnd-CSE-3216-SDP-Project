@@ -28,7 +28,7 @@ public class EmailSender {
                     "Greetings\n" +
                             "Hope this email finds you well.\n\n" +
                             "%s\n\n\n\n\n\n\n" +
-                            "Team GitGrub",
+                            "Team CareerBuddy",
                     simpleMailMessage.getMessage()
             );
             helper.setText(emailBody);
