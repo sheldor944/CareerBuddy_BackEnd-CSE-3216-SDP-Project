@@ -110,7 +110,8 @@ public class JobService {
         return jobs.stream()
                 .map(job -> new JobDTO(
                         job,
-                        job.getCompany()
+                        job.getCompany(),
+                        job.getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
                 )).collect(Collectors.toList());
     }
 
@@ -177,7 +178,9 @@ public class JobService {
         return savedJobs.stream()
                 .map(savedJob -> new JobDTO(
                         savedJob.getJob(),
-                        savedJob.getJob().getCompany()
+                        savedJob.getJob().getCompany(),
+                        savedJob.getJob().getSkills().stream().map(SkillDTO::new).collect(Collectors.toSet())
+
                 ))
                 .collect(Collectors.toList());
     }
