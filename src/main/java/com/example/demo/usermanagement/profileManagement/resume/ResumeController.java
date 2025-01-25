@@ -32,7 +32,7 @@ public class ResumeController {
         return resumeService.getResumeById(id);
     }
     @PutMapping("/update/{id}")
-    public ResumeDTO updateResume(@PathVariable UUID id, ResumeRequest resumeRequest){
+    public ResumeDTO updateResume(@PathVariable UUID id, @RequestBody ResumeRequest resumeRequest){
         return resumeService.updateResume(resumeRequest, id);
     }
 
