@@ -15,6 +15,24 @@ public class ResumeController {
     @Autowired
     ResumeService resumeService;
 
+
+    @PostMapping("/modified/{id}")
+    public ResumeDTO modifiedResume(@PathVariable UUID id) {
+        System.out.println("Resume submitted for review.");
+        return resumeService.modifiedResume(id);
+    }
+
+    @PostMapping("/finalise/{id}")
+    public ResumeDTO finaliseResume(@PathVariable UUID id) {
+        return resumeService.finaliseResume(id);
+    }
+
+    @PostMapping("/reject/{id}")
+    public ResumeDTO rejectResume(@PathVariable UUID id) {
+        return resumeService.rejectResume(id);
+    }
+
+
     @PostMapping("/create/{profileId}")
     public ResumeDTO addResume(@PathVariable UUID profileId , @RequestBody ResumeRequest resumeRequest){
         System.out.println(profileId);

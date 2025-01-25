@@ -35,6 +35,60 @@ public class ResumeService {
     SkillRepository skillRepository;
 
 
+    public ResumeDTO modifiedResume(UUID resumeId) {
+        System.out.println("in the service layer ");
+
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new RuntimeException("Resume not found"));
+
+        System.out.println("Resume not found ");
+
+
+        switch (resume.getState()) {
+            case "DRAFT":
+                resume.setState("MODIFIED");
+                resumeRepository.save(resume);
+                System.out.println("Resume submitted for review.");
+                break;
+            default:
+                System.out.println("Submit operation not allowed in the current state.");
+        }
+
+        return new ResumeDTO(resume);
+    }
+
+    public ResumeDTO finaliseResume(UUID resumeId) {
+
+
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new RuntimeException("Resume not found"));
+
+        if ("SUBMITTED".equals(resume.getState())) {
+            resume.setState("FINALISED");
+            resumeRepository.save(resume);
+            System.out.println("Resume has been approved.");
+        } else {
+            System.out.println("Approve operation not allowed in the current state.");
+        }
+
+        return new ResumeDTO(resume);
+    }
+
+    public ResumeDTO rejectResume(UUID resumeId) {
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new RuntimeException("Resume not found"));
+
+        if ("SUBMITTED".equals(resume.getState())) {
+            resume.setState("REJECTED");
+            resumeRepository.save(resume);
+            System.out.println("Resume has been rejected.");
+        } else {
+            System.out.println("Reject operation not allowed in the current state.");
+        }
+
+        return new ResumeDTO(resume);
+    }
+
 
 
 

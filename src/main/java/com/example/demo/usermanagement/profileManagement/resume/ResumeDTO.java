@@ -22,6 +22,8 @@ public class ResumeDTO {
     private String summary;
     private String themeColor;
 
+    private String state;
+
     private Set<EducationDTO> educations;
     private Set<ExperienceDTO> experiences;
     private Set<SkillDTO> skills;
@@ -43,5 +45,6 @@ public class ResumeDTO {
         this.educations = EducationDTO.educationSetToEducationDTOSet(resume.getEducations());
         this.experiences = ExperienceDTO.experienceSetToExperienceDTOSet(resume.getExperiences());
         this.skills = SkillDTO.skillSetToSkillDTOSet(resume.getSkills());
+        this.state = resume.getState();
     }
 }

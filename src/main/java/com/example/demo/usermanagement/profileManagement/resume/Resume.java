@@ -28,7 +28,11 @@ public class Resume {
     private String summary;
     private String themeColor;
 
-    // In my opinion thsee should not be there
+    // State
+    @Column(name = "state")
+    private String state = "DRAFT";  // Default state
+
+    // In my opinion these should not be there
     private String firstName;
     private String lastName;
     private String email;
