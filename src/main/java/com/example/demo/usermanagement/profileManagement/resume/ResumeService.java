@@ -63,7 +63,7 @@ public class ResumeService {
         Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new RuntimeException("Resume not found"));
 
-        if ("SUBMITTED".equals(resume.getState())) {
+        if ("MODIFIED".equals(resume.getState())) {
             resume.setState("FINALISED");
             resumeRepository.save(resume);
             System.out.println("Resume has been approved.");
