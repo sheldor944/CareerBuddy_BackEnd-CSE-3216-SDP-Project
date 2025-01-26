@@ -7,12 +7,14 @@ public abstract class BaseNotification implements Notification {
     private String recipientId;
     private String message;
     private NotificationType type;
+    private SimpleMailMessage simpleMailMessage;
 
-    public BaseNotification(UUID senderId, String recipientId, String message, NotificationType type) {
+    public BaseNotification(UUID senderId, String recipientId, String message, NotificationType type, SimpleMailMessage simpleMailMessage) {
         this.senderId = senderId;
         this.recipientId = recipientId;
         this.message = message;
         this.type = type;
+        this.simpleMailMessage = simpleMailMessage;
     }
 
     // Getters
@@ -35,4 +37,7 @@ public abstract class BaseNotification implements Notification {
     public NotificationType getType() {
         return type;
     }
+
+    @Override
+    public SimpleMailMessage getSimpleMailMessage(){return  simpleMailMessage;}
 }

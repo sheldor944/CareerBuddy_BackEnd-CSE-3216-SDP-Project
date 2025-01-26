@@ -51,7 +51,8 @@ public class UserSubscription implements NotificationObserver {
                 user.getEmail(), // Set recipient email
                 originalNotification.getMessage(),
                 originalNotification.getType(),
-                ((JobPostingNotification)originalNotification).getJobId()
+                ((JobPostingNotification)originalNotification).getJobId(),
+                new SimpleMailMessage()
         );
     }
 

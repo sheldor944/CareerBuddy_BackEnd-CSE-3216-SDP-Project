@@ -78,16 +78,22 @@ public class JobApplicationService {
     }
 
     public JobApplicationDTO updatePriorityIndex(UUID jobApplicationId, int position){
+
+        System.out.println("job application id :" + jobApplicationId);
         JobApplication jobApplication = jobApplicationRepository.findById(jobApplicationId)
                 .orElseThrow(() -> new RuntimeException("Job Application not found with the id : " + jobApplicationId));
+        System.out.println(" got the job application ");
         List<JobApplication> jobApplications = jobApplicationRepository.findByJobIdOrderByPriorityIndexAsc(jobApplication.getJob().getId());
+        System.out.println("got all the list of applications ");
         if ( position > jobApplications.size() ){
             jobApplication.setPriorityIndex(jobApplications.get(jobApplications.size() - 1).getPriorityIndex() + 1000000);
             jobApplicationRepository.save(jobApplication);
             return new JobApplicationDTO(jobApplication);
         }
         else if( position == 1){
+            System.out.println(" in this condition ");
             jobApplication.setPriorityIndex(jobApplications.get(0).getPriorityIndex() / 2);
+            System.out.println("no problem at all ");
             jobApplicationRepository.save(jobApplication);
 
             return new JobApplicationDTO(jobApplication);
@@ -98,6 +104,7 @@ public class JobApplicationService {
 
             return new JobApplicationDTO(jobApplication);
         }
+        System.out.println("last line ");
         return  null;
     }
 

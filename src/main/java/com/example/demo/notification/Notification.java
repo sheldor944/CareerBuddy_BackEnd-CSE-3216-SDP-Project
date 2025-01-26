@@ -7,4 +7,5 @@ public interface Notification {
     String getRecipientId();
     String getMessage();
     NotificationType getType();
+    SimpleMailMessage getSimpleMailMessage();
 }

@@ -10,9 +10,10 @@ public class JobPostingNotification extends BaseNotification {
             String recipientId,
             String message,
             NotificationType type,
-            UUID jobId
+            UUID jobId,
+            SimpleMailMessage simpleMailMessage
     ) {
-        super(senderId, recipientId, message, type);
+        super(senderId, recipientId, message, type, simpleMailMessage);
         this.jobId = jobId;
     }
 
