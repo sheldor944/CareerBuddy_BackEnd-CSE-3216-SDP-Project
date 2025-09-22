@@ -48,7 +48,7 @@ It is built with **Java (Spring Boot + Maven)** and uses **PostgreSQL** as the d
    Open in IntelliJ IDEA and run the main application class.
 
 ## Project Structure
-
+```
 CareerBuddy_BackEnd/
 ├─ src/
 │  ├─ main/
@@ -57,7 +57,7 @@ CareerBuddy_BackEnd/
 │  └─ test/             # Unit and integration tests
 ├─ pom.xml              # Maven configuration
 └─ README.md
-
+```
 ## Running the Application
 - The backend runs by default at:
   http://localhost:8080
