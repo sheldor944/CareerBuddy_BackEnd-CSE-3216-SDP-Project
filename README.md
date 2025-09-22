@@ -6,6 +6,8 @@ This is the backend service of **CareerBuddy**, a career management system desig
 It is built with **Java (Spring Boot + Maven)** and uses **PostgreSQL** as the database.
 
 ---
+### Frontend
+[CareerBuddy Frontend](https://github.com/reckless-meherun/CareerBuddy_FrontEnd-CSE-3216-SDP_Project.git)
 
 ## Features (Backend Responsibilities)
 
